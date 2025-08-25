@@ -1,6 +1,6 @@
 #include"main.h"
 #include"neotest/neotest.h"
-#include"neotest/case.h"
+#include"neotest/case.hpp"
 
 NEOTEST_CASE("Hello"){
 }
