@@ -1,9 +1,7 @@
 #ifndef NEOTEST_MACRO_H
 
-// 基础字符串化宏（直接转换）
-#define NEOTEST_STRINGIFY(x) #x
+#define NEOTEST_STRINGIFY(...) #__VA_ARGS__
 
-// 增强版宏（支持嵌套宏展开）
-#define NEOTEST_TO_STRING(x) STRINGIFY(x)
+#define NEOTEST_TO_STRING(...) NEOTEST_STRINGIFY(__VA_ARGS__)
 
-#endif NEOTEST_MACRO_H
+#endif//NEOTEST_MACRO_H

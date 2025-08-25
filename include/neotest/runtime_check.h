@@ -8,8 +8,10 @@
 namespace neotest{
 
 void runtime_check(
-    neotest::condition_info const& ci
+    neotest::ConditionInfo const& ci
 )noexcept;
+
+}//namespace neotest
 
 #define NEOTEST_RUNTIME_CHECK(...) \
     neotest::runtime_check(NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__)) \
@@ -21,7 +23,9 @@ void runtime_check(
 //
 #define NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(operator__,lhs__,rhs__) \
     neotest::runtime_check( \
-        NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR(operator__,lhs__,rhs__) \
+        NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR( \
+            operator__,lhs__,rhs__ \
+        ) \
     ) \
 //
 #define NEOTEST_RUNTIME_CHECK_EQ(lhs__,rhs__) \
@@ -51,8 +55,5 @@ void runtime_check(
 #define NEOTEST_RUNTIME_CHECK_NOT(...) \
     NEOTEST_RUNTIME_CHECK_UNARY_OPERATOR(!,(__VA_ARGS__)) \
 //
-
-}//namespace neotest
-
 
 #endif//NEOTEST_RUNTIME_CHECK_H
