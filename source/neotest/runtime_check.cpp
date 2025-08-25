@@ -1,9 +1,6 @@
 #include"runtime_check.h"
 #include"runtime_check_counter.h"
-
-void runtime_check_failed(
-    neotest::ConditionInfo const& ci
-)noexcept{}
+#include"runtime_failed.h"
 
 namespace neotest{
 
@@ -15,7 +12,7 @@ void runtime_check(
         neotest::runtime_check_passed_count_increment();
     }else{
         neotest::runtime_check_failed_count_increment();
-        runtime_check_failed(ci);
+        neotest::runtime_check_failed(ci.file,ci.line,ci.info);
     }
 }
 

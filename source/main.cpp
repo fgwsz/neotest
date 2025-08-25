@@ -1,5 +1,5 @@
 #include"main.h"
-#include"neotest.h"
+#include"neotest/neotest.h"
 
 int main(int argc,char* argv[]){
     neotest::Timer t;
