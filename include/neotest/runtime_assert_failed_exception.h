@@ -2,6 +2,8 @@
 #define NEOTEST_RUNTIME_ASSERT_FAILED_EXCEPTION_H
 
 #include<exception>//std::exception
+#include<string_view>//std::string_view
+#include<string>//std::string
 
 namespace neotest{
 

@@ -12,7 +12,7 @@ void runtime_check(
         neotest::runtime_check_passed_count_increment();
     }else{
         neotest::runtime_check_failed_count_increment();
-        neotest::runtime_check_failed(ci.file,ci.line,ci.info);
+        neotest::runtime_check_failed(ci.file,ci.line_sv,ci.info);
     }
 }
 

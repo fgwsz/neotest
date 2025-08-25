@@ -12,7 +12,7 @@ namespace neotest{
 struct SourceInfo{
     std::string_view file;
     std::size_t line;
-    std::string_view line_str;
+    std::string_view line_sv;
     std::string_view info;
 };
 }//namespace neotest

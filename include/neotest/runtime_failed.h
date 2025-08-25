@@ -1,6 +1,8 @@
 #ifndef NEOTEST_RUNTIME_FAILED_H
 #define NEOTEST_RUNTIME_FAILED_H
 
+#include<string_view>//std::string_view
+
 namespace neotest{
 
 void runtime_check_failed(

@@ -17,7 +17,7 @@ RuntimeAssertFailedException::RuntimeAssertFailedException(
         ,this->info_
     );
 }
-virtual char const* RuntimeAssertFailedException::what()const noexcept override{
+char const* RuntimeAssertFailedException::what()const noexcept{
     return this->what_.c_str();
 }
 std::string_view RuntimeAssertFailedException::file(void)const noexcept{
