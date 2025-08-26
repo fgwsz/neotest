@@ -5,6 +5,7 @@ NEOTEST_CASE("Hello"){
     NEOTEST_RUNTIME_ASSERT_EQ(1+2,2);
 }
 NEOTEST_CASE("world!"){
+    NEOTEST_RUNTIME_CHECK_EQ(1+2,2);
 }
 int main(int argc,char* argv[]){
     neotest::Timer t;
