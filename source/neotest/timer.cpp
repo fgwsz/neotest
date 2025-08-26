@@ -1,5 +1,6 @@
 #include"timer.h"
 
+#include<cstddef>///std::size_t
 #include<cmath>//std::floor
 
 #include<ratio>//std::ratio
@@ -21,7 +22,7 @@ std::string nanoseconds_to_string(double ns)noexcept{
         double factor;
         const char* suffix;
     };
-    static constexpr std::array<TimeUnit,6> time_units ={{
+    static constexpr std::array<TimeUnit,6> time_units={{
        {60.0 * 60.0 * 1000.0 * 1000.0 * 1000.0,"h"}, // 1 h
        {60.0 * 1000.0 * 1000.0 * 1000.0,"m"},        // 1 m
        {1000.0 * 1000.0 * 1000.0,"s"},               // 1 s
@@ -29,12 +30,12 @@ std::string nanoseconds_to_string(double ns)noexcept{
        {1000.0,"us"},                                // 1 us
        {1.0,"ns"}                                    // 1 ns
     }};
-    if(ns == 0.0){
+    if(ns==0.0){
         return "0 ns";
     }
     std::ostringstream oss;
     bool first=true;
-    for(const auto& unit:time_units){
+    for(auto const& unit:time_units){
         if(ns>=unit.factor){
             double value=std::floor(ns/unit.factor);
             ns-=value*unit.factor;
