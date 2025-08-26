@@ -17,7 +17,7 @@ bool case_register(
     std::string_view case_name
     ,void(*case_body)(void)
 )noexcept{
-    if(!neotest::case_dict.contains(case_name)){
+    if(neotest::case_dict.contains(case_name)){
         return false;
     }
     neotest::case_dict.insert(case_name,case_body);

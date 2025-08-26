@@ -72,7 +72,7 @@ public:
     ){
         if(this->contains(key)){
             throw std::runtime_error(
-                "OrderedMap::insert():"
+                "OrderedMap::insert(): "
                 "This key already exists."
             );
         }
@@ -85,7 +85,7 @@ public:
     constexpr OrderedMap& erase(KeyType__ const& key){
         if(!this->contains(key)){
             throw std::runtime_error(
-                "OrderedMap::erase():"
+                "OrderedMap::erase(): "
                 "Can't find this key."
             );
         }
@@ -101,11 +101,11 @@ public:
     constexpr ValueType__ const& get(KeyType__ const& key)const{
         if(!this->contains(key)){
             throw std::runtime_error(
-                "OrderedMap::get():"
+                "OrderedMap::get(): "
                 "Can't find this key."
             );
         }
-        return this->map_[key]->value_;
+        return this->map_.at(key)->value_;
     }
     constexpr OrderedMap& update(
         KeyType__ const& key,
@@ -113,7 +113,7 @@ public:
     ){
         if(!this->contains(key)){
             throw std::runtime_error(
-                "OrderedMap::update():"
+                "OrderedMap::update() :"
                 "Can't find this key."
             );
         }
