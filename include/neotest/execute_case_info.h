@@ -85,6 +85,9 @@ public:
     ExecuteCaseInfo& set_skip(std::string const& reason)noexcept;
     bool has_skip_reason(void)const noexcept;
     std::string const& get_skip_reason(void)const noexcept;
+    //current
+    static void set_current(ExecuteCaseInfo& info)noexcept;
+    static ExecuteCaseInfo& get_current(void)noexcept;
 private:
     std::string_view case_name_;
     std::optional<std::string_view> group_name_;
@@ -100,6 +103,7 @@ private:
         runtime_assert_failed_exception_;
     std::vector<std::string> runtime_exceptions_;
     std::optional<std::string> skip_reason_;
+    static ExecuteCaseInfo* current_;
 };
 
 }//namespace neotest

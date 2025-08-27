@@ -2,6 +2,8 @@
 
 namespace neotest{
 
+ExecuteCaseInfo* ExecuteCaseInfo::current_=nullptr;
+
 ExecuteCaseInfo::ExecuteCaseInfo(std::string_view case_name)noexcept
     :case_name_(case_name)
     ,group_name_({})
@@ -191,6 +193,13 @@ bool ExecuteCaseInfo::has_skip_reason(void)const noexcept{
 }
 std::string const& ExecuteCaseInfo::get_skip_reason(void)const noexcept{
     return this->skip_reason_.value();
+}
+//current
+void ExecuteCaseInfo::set_current(ExecuteCaseInfo& info)noexcept{
+    ExecuteCaseInfo::current_=&info;
+}
+ExecuteCaseInfo& ExecuteCaseInfo::get_current(void)noexcept{
+    return *(ExecuteCaseInfo::current_);
 }
 
 }//namespace neotest

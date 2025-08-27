@@ -6,15 +6,6 @@
 namespace neotest{
 
 struct RuntimeCheckFailedError{
-    RuntimeCheckFailedError(
-        std::string_view file
-        ,std::string_view line
-        ,std::string_view info
-    )noexcept{
-        this->file=file;
-        this->line=line;
-        this->info=info;
-    }
     std::string_view file,line,info;
 };
 

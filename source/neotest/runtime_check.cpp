@@ -1,19 +1,22 @@
 #include"runtime_check.h"
 
-#include"runtime_check_counter.h"
-#include"runtime_failed.h"
+#include"execute_case_info.h"
+#include"runtime_check_failed_error.h"
 
 namespace neotest{
 
 void runtime_check(
     neotest::ConditionInfo const& ci
 )noexcept{
-    neotest::runtime_check_count_increment();
+    auto& current=neotest::ExecuteCaseInfo::get_current();
+    current.runtime_check_total_increment();
     if(ci.condition){
-        neotest::runtime_check_passed_count_increment();
+        current.runtime_check_passed_increment();
     }else{
-        neotest::runtime_check_failed_count_increment();
-        neotest::runtime_check_failed(ci.file,ci.line_sv,ci.info);
+        current.runtime_check_failed_increment();
+        current.runtime_check_failed_errors_push_back(
+            neotest::RuntimeCheckFailedError{ci.file,ci.line,ci.info};
+        );
     }
 }
 
