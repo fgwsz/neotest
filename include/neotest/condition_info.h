@@ -39,7 +39,7 @@ struct ConditionInfo{
     } \
 //
 #define NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR( \
-    operator__,lhs__,rhs__ \
+    operator__,lhs__,... \
 ) \
     neotest::ConditionInfo{ \
         __FILE__ \
@@ -48,9 +48,9 @@ struct ConditionInfo{
             std::ostringstream{} \
                 <<(lhs__) \
                 <<" " NEOTEST_TO_STRING(operator__) " " \
-                <<(rhs__) \
+                <<(__VA_ARGS__) \
         ).str() \
-        ,static_cast<bool>(lhs__ operator__ rhs__) \
+        ,static_cast<bool>(lhs__ operator__ __VA_ARGS__) \
     } \
 //
 

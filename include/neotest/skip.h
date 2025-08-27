@@ -13,9 +13,9 @@ void skip(neotest::SkipInfo const& si)noexcept;
 #define NEOTEST_SKIP(...) do{ \
     neotest::skip( \
         neotest::SkipInfo{ \
-            std::string_view{__FILE__} \
-            ,std::string_view{NEOTEST_TO_STRING(__LINE__)} \
-            ,std::string_view{__VA_ARGS__} \
+            __FILE__ \
+            ,NEOTEST_TO_STRING(__LINE__) \
+            ,__VA_ARGS__ \
         } \
     ); \
     return; \

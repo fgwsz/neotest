@@ -27,8 +27,9 @@ struct StaticString{
 
 }//namespace neotest
 
-#define NEOTEST_MAKE_STATIC_STRING(c_str_literal__) \
-    neotest::StaticString<c_str_literal__> \
+//...: c_str_literal
+#define NEOTEST_MAKE_STATIC_STRING(...) \
+    neotest::StaticString<__VA_ARGS__> \
 //
 
 #endif//NEOTEST_STATIC_STRING_HPP
