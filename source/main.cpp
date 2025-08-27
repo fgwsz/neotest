@@ -5,7 +5,7 @@
 #include"neotest/neotest.h"
 
 NEOTEST_CASE("Hello"){
-    NEOTEST_RUNTIME_CHECK_EQ(0,0-3)<<"msg 1";
+    NEOTEST_RUNTIME_CHECK_EQ(0,0-3)<<"[msg]: "<<int{1};
     NEOTEST_RUNTIME_CHECK_EQ(1,1-3)<<"msg 2";
     NEOTEST_RUNTIME_CHECK_EQ(2,2-3)<<"msg 3";
     NEOTEST_SKIP("this is skip reason!");
