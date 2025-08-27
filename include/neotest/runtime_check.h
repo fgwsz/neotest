@@ -1,26 +1,19 @@
 #ifndef NEOTEST_RUNTIME_CHECK_H
 #define NEOTEST_RUNTIME_CHECK_H
 
-#include<cstddef>//std::size_t
-
 #include"condition_info.h"
-
-namespace neotest{
-
-void runtime_check(neotest::ConditionInfo const& ci)noexcept;
-
-}//namespace neotest
+#include"runtime_check_stream.hpp"
 
 #define NEOTEST_RUNTIME_CHECK(...) \
-    neotest::runtime_check(NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__)) \
+    neotest::RuntimeCheckStream(NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__)) \
 //
 #define NEOTEST_RUNTIME_CHECK_UNARY_OPERATOR(operator__,...) \
-    neotest::runtime_check( \
+    neotest::RuntimeCheckStream( \
         NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR(operator__,__VA_ARGS__) \
     ) \
 //
 #define NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(operator__,lhs__,...) \
-    neotest::runtime_check( \
+    neotest::RuntimeCheckStream( \
         NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR( \
             operator__,lhs__,__VA_ARGS__ \
         ) \

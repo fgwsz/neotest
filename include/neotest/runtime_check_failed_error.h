@@ -8,7 +8,7 @@ namespace neotest{
 
 struct RuntimeCheckFailedError{
     std::string_view file,line;
-    std::string info;
+    std::string info,msg;
 };
 
 }//namespace neotest

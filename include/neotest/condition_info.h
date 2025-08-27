@@ -10,8 +10,7 @@
 namespace neotest{
 
 struct ConditionInfo{
-    std::string_view file;
-    std::string_view line;
+    std::string_view file,line;
     std::string info;
     bool condition;
 };

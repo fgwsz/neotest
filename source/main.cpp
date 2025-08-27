@@ -5,14 +5,15 @@
 #include"neotest/neotest.h"
 
 NEOTEST_CASE("Hello"){
-    NEOTEST_RUNTIME_CHECK_EQ(0,0-3);
-    NEOTEST_RUNTIME_CHECK_EQ(1,1-3);
-    NEOTEST_RUNTIME_CHECK_EQ(2,2-3);
+    NEOTEST_RUNTIME_CHECK_EQ(0,0-3)<<"msg 1";
+    NEOTEST_RUNTIME_CHECK_EQ(1,1-3)<<"msg 2";
+    NEOTEST_RUNTIME_CHECK_EQ(2,2-3)<<"msg 3";
     NEOTEST_SKIP("this is skip reason!");
     NEOTEST_RUNTIME_ASSERT_EQ(1+2,2);
 }
 NEOTEST_CASE("world!"){
     NEOTEST_RUNTIME_CHECK_EQ(1+2,2);
+    //NEOTEST_RUNTIME_CHECK_EQ(1+1,3);<<"[message]:"<<int{100};
 }
 std::string execute_case_info_to_string(
     neotest::ExecuteCaseInfo const& ei
@@ -50,6 +51,12 @@ std::string execute_case_info_to_string(
                 var_str(
                     std::format("runtime_check_failed_errors[{}].info",index),
                     error.info
+                )
+            );
+            ret.append(
+                var_str(
+                    std::format("runtime_check_failed_errors[{}].msg",index),
+                    error.msg
                 )
             );
             ++index;
