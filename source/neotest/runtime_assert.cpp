@@ -14,7 +14,7 @@ void runtime_assert(
         current.runtime_assert_passed_increment();
     }else{
         current.runtime_assert_failed_increment();
-        throw neotest::RuntimeAssertFailedException(ci.file,ci.line,ci.info);
+        throw neotest::RuntimeAssertFailedException(ci.file,ci.line_sv,ci.info);
     }
 }
 

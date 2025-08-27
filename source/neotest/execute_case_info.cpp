@@ -17,7 +17,7 @@ ExecuteCaseInfo::ExecuteCaseInfo(std::string_view case_name)noexcept
     ,runtime_assert_failed_(0)
     ,runtime_assert_failed_exception_({})
     ,runtime_exceptions_({})
-    ,skip_reason_({})
+    ,skip_info_({})
 {}
 //case name
 ExecuteCaseInfo& ExecuteCaseInfo::set_case_name(std::string_view case_name)noexcept{
@@ -181,18 +181,18 @@ bool ExecuteCaseInfo::is_failed(void)const noexcept{
         || this->has_runtime_exceptions();
 }
 bool ExecuteCaseInfo::is_skipped(void)const noexcept{
-    return this->has_skip_reason();
+    return this->has_skip();
 }
 //skip
-ExecuteCaseInfo& ExecuteCaseInfo::set_skip(std::string const& reason)noexcept{
-    this->skip_reason_=reason;
+ExecuteCaseInfo& ExecuteCaseInfo::set_skip(neotest::SkipInfo const& info)noexcept{
+    this->skip_info_=info;
     return *this;
 }
-bool ExecuteCaseInfo::has_skip_reason(void)const noexcept{
-    return this->skip_reason_.has_value();
+bool ExecuteCaseInfo::has_skip(void)const noexcept{
+    return this->skip_info_.has_value();
 }
-std::string const& ExecuteCaseInfo::get_skip_reason(void)const noexcept{
-    return this->skip_reason_.value();
+neotest::SkipInfo const& ExecuteCaseInfo::get_skip(void)const noexcept{
+    return this->skip_info_.value();
 }
 //current
 void ExecuteCaseInfo::set_current(ExecuteCaseInfo& info)noexcept{
