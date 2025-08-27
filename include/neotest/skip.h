@@ -3,15 +3,19 @@
 
 #include"macro.h"
 #include"skip_info.h"
-#include"execute_case_info.h"
+
+namespace neotest{
+
+void skip(neotest::SkipInfo const& si)noexcept;
+
+}//namespace neotest
 
 #define NEOTEST_SKIP(...) do{ \
-    neotest::ExecuteCaseInfo::get_current() \
-        .set_skip( \
-            neotest::SkipInfo{ \
+    neotest::skip( \
+        neotest::SkipInfo{ \
             std::string_view{__FILE__} \
             ,std::string_view{NEOTEST_TO_STRING(__LINE__)} \
-            ,std::string_view{NEOTEST_TO_STRING(__VA_ARGS__)} \
+            ,std::string_view{__VA_ARGS__} \
         } \
     ); \
     return; \

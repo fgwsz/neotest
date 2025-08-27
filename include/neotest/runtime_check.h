@@ -7,9 +7,7 @@
 
 namespace neotest{
 
-void runtime_check(
-    neotest::ConditionInfo const& ci
-)noexcept;
+void runtime_check(neotest::ConditionInfo const& ci)noexcept;
 
 }//namespace neotest
 

@@ -7,7 +7,7 @@ namespace neotest{
 
 void runtime_assert(
     neotest::ConditionInfo const& ci
-)noexcept{
+){
     auto& current=neotest::ExecuteCaseInfo::get_current();
     current.runtime_assert_total_increment();
     if(ci.condition){

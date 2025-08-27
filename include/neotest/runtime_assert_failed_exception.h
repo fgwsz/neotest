@@ -10,6 +10,16 @@ namespace neotest{
 class RuntimeAssertFailedException
     :public std::exception{
 public:
+    RuntimeAssertFailedException(RuntimeAssertFailedException const&)noexcept
+        =default;
+    RuntimeAssertFailedException(RuntimeAssertFailedException &&)noexcept
+        =default;
+    RuntimeAssertFailedException&
+        operator=(RuntimeAssertFailedException const&)noexcept=default;
+    RuntimeAssertFailedException&
+        operator=(RuntimeAssertFailedException &&)noexcept=default;
+    virtual ~RuntimeAssertFailedException(void)noexcept=default;
+
     RuntimeAssertFailedException(
         std::string_view file
         ,std::string_view line

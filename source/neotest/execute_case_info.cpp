@@ -16,7 +16,7 @@ ExecuteCaseInfo::ExecuteCaseInfo(std::string_view case_name)noexcept
     ,runtime_assert_passed_(0)
     ,runtime_assert_failed_(0)
     ,runtime_assert_failed_exception_({})
-    ,runtime_exceptions_({})
+    ,runtime_exception_({})
     ,skip_info_({})
 {}
 //case name
@@ -142,25 +142,23 @@ ExecuteCaseInfo::get_runtime_assert_failed_exception(void)const noexcept{
     return this->runtime_assert_failed_exception_.value();
 }
 //runtime exception
-bool ExecuteCaseInfo::has_runtime_exceptions(void)const noexcept{
-    return !(this->runtime_exceptions_.empty());
+bool ExecuteCaseInfo::has_runtime_exception(void)const noexcept{
+    return this->runtime_exception_.has_value();
 }
-ExecuteCaseInfo& ExecuteCaseInfo::runtime_exceptions_push_back(
+ExecuteCaseInfo& ExecuteCaseInfo::set_runtime_exception(
     std::string const& exception_what
 )noexcept{
-    this->runtime_exceptions_.emplace_back(exception_what);
+    this->runtime_exception_=exception_what;
     return *this;
 }
-ExecuteCaseInfo const& ExecuteCaseInfo::runtime_exceptions_foreach(
-    std::function<void(std::string const&)>const& func
-)const noexcept{
-    for(auto const& exception_what:this->runtime_exceptions_){
-        func(exception_what);
-    }
-    return *this;
+std::string const& ExecuteCaseInfo::get_runtime_exception(void)const noexcept{
+    return this->runtime_exception_.value();
 }
 //state
 ExecuteCaseInfo::State ExecuteCaseInfo::get_state(void)const noexcept{
+    if(this->is_undefined()){
+        return ExecuteCaseInfo::State::Undefined;
+    }
     if(this->is_skipped()){
         return ExecuteCaseInfo::State::Skipped;
     }
@@ -178,13 +176,17 @@ bool ExecuteCaseInfo::is_failed(void)const noexcept{
     }
     return this->has_runtime_check_failed_errors()
         || this->has_runtime_assert_failed_exception()
-        || this->has_runtime_exceptions();
+        || this->has_runtime_exception();
 }
 bool ExecuteCaseInfo::is_skipped(void)const noexcept{
-    return this->has_skip();
+    return (!this->is_undefined())&&(this->has_skip());
+}
+bool ExecuteCaseInfo::is_undefined(void)const noexcept{
+    return this->case_name_.empty();
 }
 //skip
-ExecuteCaseInfo& ExecuteCaseInfo::set_skip(neotest::SkipInfo const& info)noexcept{
+ExecuteCaseInfo&
+ExecuteCaseInfo::set_skip(neotest::SkipInfo const& info)noexcept{
     this->skip_info_=info;
     return *this;
 }

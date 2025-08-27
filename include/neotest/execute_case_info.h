@@ -69,19 +69,18 @@ public:
     neotest::RuntimeAssertFailedException const&
     get_runtime_assert_failed_exception(void)const noexcept;
     //runtime exception
-    bool has_runtime_exceptions(void)const noexcept;
-    ExecuteCaseInfo& runtime_exceptions_push_back(
+    bool has_runtime_exception(void)const noexcept;
+    ExecuteCaseInfo& set_runtime_exception(
         std::string const& exception_what
     )noexcept;
-    ExecuteCaseInfo const& runtime_exceptions_foreach(
-        std::function<void(std::string const&)>const& func
-    )const noexcept;
+    std::string const& get_runtime_exception(void)const noexcept;
     //state
-    enum class State{ Passed,Failed,Skipped };
+    enum class State{ Undefined,Passed,Failed,Skipped };
     ExecuteCaseInfo::State get_state(void)const noexcept;
     bool is_passed(void)const noexcept;
     bool is_failed(void)const noexcept;
     bool is_skipped(void)const noexcept;
+    bool is_undefined(void)const noexcept;
     //skip
     ExecuteCaseInfo& set_skip(neotest::SkipInfo const& info)noexcept;
     bool has_skip(void)const noexcept;
@@ -102,7 +101,7 @@ private:
     std::size_t runtime_assert_failed_;
     std::optional<neotest::RuntimeAssertFailedException>
         runtime_assert_failed_exception_;
-    std::vector<std::string> runtime_exceptions_;
+    std::optional<std::string> runtime_exception_;
     std::optional<neotest::SkipInfo> skip_info_;
     static ExecuteCaseInfo* current_;
 };
