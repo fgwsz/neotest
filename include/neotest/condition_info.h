@@ -1,15 +1,18 @@
 #ifndef NEOTEST_CONDITION_INFO_H
 #define NEOTEST_CONDITION_INFO_H
 
+#include<string_view>//std::string_view
+#include<string>//std::string
 #include<sstream>//std::ostringstream
 
 #include"macro.h"
-#include"source_info.h"
 
 namespace neotest{
 
-struct ConditionInfo
-    :public SourceInfo{
+struct ConditionInfo{
+    std::string_view file;
+    std::string_view line;
+    std::string info;
     bool condition;
 };
 
@@ -18,7 +21,6 @@ struct ConditionInfo
 #define NEOTEST_MAKE_CONDITION_INFO(...) \
     neotest::ConditionInfo{ \
         __FILE__ \
-        ,__LINE__ \
         ,NEOTEST_TO_STRING(__LINE__) \
         ,(std::ostringstream{}<<__VA_ARGS__).str() \
         ,static_cast<bool>(__VA_ARGS__) \
@@ -27,7 +29,6 @@ struct ConditionInfo
 #define NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR(operator__,...) \
     neotest::ConditionInfo{ \
         __FILE__ \
-        ,__LINE__ \
         ,NEOTEST_TO_STRING(__LINE__) \
         ,( \
             std::ostringstream{} \
@@ -42,7 +43,6 @@ struct ConditionInfo
 ) \
     neotest::ConditionInfo{ \
         __FILE__ \
-        ,__LINE__ \
         ,NEOTEST_TO_STRING(__LINE__) \
         ,( \
             std::ostringstream{} \

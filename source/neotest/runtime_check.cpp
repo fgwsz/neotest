@@ -15,7 +15,7 @@ void runtime_check(
     }else{
         current.runtime_check_failed_increment();
         current.runtime_check_failed_errors_push_back(
-            neotest::RuntimeCheckFailedError{ci.file,ci.line_sv,ci.info}
+            neotest::RuntimeCheckFailedError{ci.file,ci.line,ci.info}
         );
     }
 }

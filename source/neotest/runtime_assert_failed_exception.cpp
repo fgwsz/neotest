@@ -7,7 +7,7 @@ namespace neotest{
 RuntimeAssertFailedException::RuntimeAssertFailedException(
     std::string_view file
     ,std::string_view line
-    ,std::string_view info
+    ,std::string const& info
 )noexcept
 :file_(file),line_(line),info_(info),what_({}){
     this->what_=std::format(
@@ -26,7 +26,7 @@ std::string_view RuntimeAssertFailedException::file(void)const noexcept{
 std::string_view RuntimeAssertFailedException::line(void)const noexcept{
     return this->line_;
 }
-std::string_view RuntimeAssertFailedException::info(void)const noexcept{
+std::string const& RuntimeAssertFailedException::info(void)const noexcept{
     return this->info_;
 }
 

@@ -5,6 +5,9 @@
 #include"neotest/neotest.h"
 
 NEOTEST_CASE("Hello"){
+    NEOTEST_RUNTIME_CHECK_EQ(0,0-3);
+    NEOTEST_RUNTIME_CHECK_EQ(1,1-3);
+    NEOTEST_RUNTIME_CHECK_EQ(2,2-3);
     NEOTEST_SKIP("this is skip reason!");
     NEOTEST_RUNTIME_ASSERT_EQ(1+2,2);
 }
@@ -29,9 +32,29 @@ std::string execute_case_info_to_string(
         ei.get_runtime_check_passed_rate()));
 
     if(ei.has_runtime_check_failed_errors()){
-        //TODO
-        auto func=[&](){};
-        
+        std::size_t index=0;
+        auto func=[&](auto const& error){
+            ret.append(
+                var_str(
+                    std::format("runtime_check_failed_errors[{}].file",index),
+                    error.file
+                )
+            );
+            ret.append(
+                var_str(
+                    std::format("runtime_check_failed_errors[{}].line",index),
+                    error.line
+                )
+            );
+            ret.append(
+                var_str(
+                    std::format("runtime_check_failed_errors[{}].info",index),
+                    error.info
+                )
+            );
+            ++index;
+        };
+        ei.runtime_check_failed_errors_foreach(func);
     }
 
     ret.append(var_str("runtime_assert_total",ei.get_runtime_assert_total()));

@@ -23,15 +23,15 @@ public:
     RuntimeAssertFailedException(
         std::string_view file
         ,std::string_view line
-        ,std::string_view info
+        ,std::string const& info
     )noexcept;
     virtual char const* what()const noexcept override;
     std::string_view file(void)const noexcept;
     std::string_view line(void)const noexcept;
-    std::string_view info(void)const noexcept;
+    std::string const& info(void)const noexcept;
 private:
-    std::string_view file_,line_,info_;
-    std::string what_;
+    std::string_view file_,line_;
+    std::string info_,what_;
 };
 
 }//namespace neotest
