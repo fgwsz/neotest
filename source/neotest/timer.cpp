@@ -57,28 +57,33 @@ std::string nanoseconds_to_string(double ns)noexcept{
 namespace neotest{
 
 void Timer::start()noexcept{
-    begin_=clock::now();
+    this->begin_=clock::now();
 }
 void Timer::stop()noexcept{
-    end_=clock::now();
+    this->end_=clock::now();
 }
 double Timer::delta_nanoseconds()const noexcept{
-    return neotest::detail::delta<std::nano,time_point>(begin_,end_);
+    return neotest::detail::delta<std::nano,time_point>(this->begin_,this->end_);
 }
 double Timer::delta_microseconds()const noexcept{
-    return neotest::detail::delta<std::micro,time_point>(begin_,end_);
+    return neotest::detail::delta<std::micro,time_point>
+        (this->begin_,this->end_);
 }
 double Timer::delta_milliseconds()const noexcept{
-    return neotest::detail::delta<std::milli,time_point>(begin_,end_);
+    return neotest::detail::delta<std::milli,time_point>
+        (this->begin_,this->end_);
 }
 double Timer::delta_seconds()const noexcept{
-    return neotest::detail::delta<std::ratio<1>,time_point>(begin_,end_);
+    return neotest::detail::delta<std::ratio<1>,time_point>
+        (this->begin_,this->end_);
 }
 double Timer::delta_minutes()const noexcept{
-    return neotest::detail::delta<std::ratio<60>,time_point>(begin_,end_);
+    return neotest::detail::delta<std::ratio<60>,time_point>
+        (this->begin_,this->end_);
 }
 double Timer::delta_hours()const noexcept{
-    return neotest::detail::delta<std::ratio<3600>,time_point>(begin_,end_);
+    return neotest::detail::delta<std::ratio<3600>,time_point>
+        (this->begin_,this->end_);
 }
 std::string Timer::delta_string()const noexcept{
     return neotest::detail::nanoseconds_to_string(delta_nanoseconds());
