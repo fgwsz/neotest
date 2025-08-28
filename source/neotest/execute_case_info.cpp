@@ -17,7 +17,7 @@ ExecuteCaseInfo::ExecuteCaseInfo(std::string_view case_name)noexcept
     ,runtime_assert_failed_(0)
     ,runtime_assert_failed_exception_({})
     ,runtime_exception_({})
-    ,skip_info_({})
+    ,skip_exception_({})
 {}
 //case name
 ExecuteCaseInfo& ExecuteCaseInfo::set_case_name(std::string_view case_name)noexcept{
@@ -186,15 +186,15 @@ bool ExecuteCaseInfo::is_undefined(void)const noexcept{
 }
 //skip
 ExecuteCaseInfo&
-ExecuteCaseInfo::set_skip(neotest::SkipInfo const& info)noexcept{
-    this->skip_info_=info;
+ExecuteCaseInfo::set_skip(neotest::SkipException const& se)noexcept{
+    this->skip_exception_=se;
     return *this;
 }
 bool ExecuteCaseInfo::has_skip(void)const noexcept{
-    return this->skip_info_.has_value();
+    return this->skip_exception_.has_value();
 }
-neotest::SkipInfo const& ExecuteCaseInfo::get_skip(void)const noexcept{
-    return this->skip_info_.value();
+neotest::SkipException const& ExecuteCaseInfo::get_skip(void)const noexcept{
+    return this->skip_exception_.value();
 }
 //current
 void ExecuteCaseInfo::set_current(ExecuteCaseInfo& info)noexcept{

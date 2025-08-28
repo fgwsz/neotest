@@ -1,29 +1,34 @@
 #include"runtime_check_stream.hpp"
 
+#include"runtime_check_failed_error.h"
 #include"execute_case_info.h"
 
 namespace neotest{
 
 RuntimeCheckStream::RuntimeCheckStream(neotest::ConditionInfo const& ci)noexcept
-    :error_({})
-    ,message_({}){
-    if(!ci.condition){
-        this->error_=
-            neotest::RuntimeCheckFailedError{ci.file,ci.line,ci.info};
-    }
-}
+    :info_(ci)
+    ,message_({})
+{}
 RuntimeCheckStream::~RuntimeCheckStream(void)noexcept{
+    std::optional<neotest::RuntimeCheckFailedError> error={};
+    if(!this->info_.condition){
+        error=neotest::RuntimeCheckFailedError{
+            this->info_.file
+            ,this->info_.line
+            ,this->info_.info
+        };
+    }
     auto& current=neotest::ExecuteCaseInfo::get_current();
     current.runtime_check_total_increment();
-    if(!this->error_.has_value()){
+    if(!error.has_value()){
         current.runtime_check_passed_increment();
     }else{
         current.runtime_check_failed_increment();
         if(this->message_.has_value()){
-            this->error_.value().msg=this->message_.value();
+            error.value().msg=this->message_.value();
         }
         current.runtime_check_failed_errors_push_back(
-            this->error_.value()
+            error.value()
         );
     }
 }

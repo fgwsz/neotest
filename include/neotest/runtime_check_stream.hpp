@@ -7,7 +7,6 @@
 #include<utility>//std::forward
 
 #include"condition_info.h"
-#include"runtime_check_failed_error.h"
 
 namespace neotest{
 
@@ -27,7 +26,7 @@ public:
     RuntimeCheckStream(neotest::ConditionInfo const& ci)noexcept;
     ~RuntimeCheckStream(void)noexcept;
 private:
-    std::optional<neotest::RuntimeCheckFailedError> error_;
+    neotest::ConditionInfo info_;
     std::optional<std::string> message_;
 };
 

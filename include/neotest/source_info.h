@@ -1,8 +1,6 @@
 #ifndef NEOTEST_SOURCE_INFO_H
 #define NEOTEST_SOURCE_INFO_H
 
-#include<cstddef>//std::size_t
-
 #include<string_view>//std::string_view
 #include<string>//std::string
 

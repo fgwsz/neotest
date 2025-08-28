@@ -28,26 +28,20 @@ neotest::ExecuteCaseInfo execute_case(
         ci.set_runtime_assert_failed_exception(
             runtime_assert_failed_exception
         );
+    }catch(neotest::SkipException const& skip_exception){
+        ci.set_skip(skip_exception);
     }catch(std::exception const& std_exception){
         ci.set_runtime_exception(
             std::format("std::exception{{{}}}",std_exception.what())
         );
     }catch(char const* c_str){
-        ci.set_runtime_exception(
-            std::format("char const*{{{}}}",c_str)
-        );
+        ci.set_runtime_exception(std::format("char const*{{{}}}",c_str));
     }catch(std::string_view std_sv){
-        ci.set_runtime_exception(
-            std::format("std::string_view{{{}}}",std_sv)
-        );
+        ci.set_runtime_exception(std::format("std::string_view{{{}}}",std_sv));
     }catch(std::string const& std_str){
-        ci.set_runtime_exception(
-            std::format("std::string{{{}}}",std_str)
-        );
+        ci.set_runtime_exception(std::format("std::string{{{}}}",std_str));
     }catch(...){
-        ci.set_runtime_exception(
-            "Unknown{...}"
-        );
+        ci.set_runtime_exception("Unknown{...}");
     }
     ci.execute_stop();
     return ci;

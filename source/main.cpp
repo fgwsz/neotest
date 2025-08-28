@@ -8,8 +8,8 @@ NEOTEST_CASE("Hello"){
     NEOTEST_RUNTIME_CHECK_EQ(0,0-3)<<"[msg]: "<<int{1};
     NEOTEST_RUNTIME_CHECK_EQ(1,1-3)<<"msg 2";
     NEOTEST_RUNTIME_CHECK_EQ(2,2-3)<<"msg 3";
+    //NEOTEST_SKIP("this is skip reason!")<<"[msg]: skip msg";
     NEOTEST_RUNTIME_ASSERT_EQ(1+2,2)<<"msg assert failed!";
-    NEOTEST_SKIP("this is skip reason!");
 }
 NEOTEST_CASE("world!"){
     NEOTEST_RUNTIME_CHECK_EQ(1+2,2);
@@ -92,9 +92,12 @@ std::string execute_case_info_to_string(
     ret.append(var_str("is_undefined",ei.is_undefined()));
 
     if(ei.has_skip()){
-        ret.append(var_str("skip.file",ei.get_skip().file));
-        ret.append(var_str("skip.line",ei.get_skip().line));
-        ret.append(var_str("skip.info",ei.get_skip().info));
+        ret.append(var_str("skip.file",ei.get_skip().file()));
+        ret.append(var_str("skip.line",ei.get_skip().line()));
+        ret.append(var_str("skip.info",ei.get_skip().info()));
+        if(ei.get_skip().has_msg()){
+            ret.append(var_str("skip.msg",ei.get_skip().msg()));
+        }
     }
     return ret;
 }

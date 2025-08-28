@@ -12,7 +12,7 @@
 #include"timer.h"
 #include"runtime_check_failed_error.h"
 #include"runtime_assert_failed_exception.h"
-#include"skip_info.h"
+#include"skip_exception.h"
 
 namespace neotest{
 
@@ -82,9 +82,9 @@ public:
     bool is_skipped(void)const noexcept;
     bool is_undefined(void)const noexcept;
     //skip
-    ExecuteCaseInfo& set_skip(neotest::SkipInfo const& info)noexcept;
+    ExecuteCaseInfo& set_skip(neotest::SkipException const& se)noexcept;
     bool has_skip(void)const noexcept;
-    neotest::SkipInfo const& get_skip(void)const noexcept;
+    neotest::SkipException const& get_skip(void)const noexcept;
     //current
     static void set_current(ExecuteCaseInfo& info)noexcept;
     static ExecuteCaseInfo& get_current(void)noexcept;
@@ -102,7 +102,7 @@ private:
     std::optional<neotest::RuntimeAssertFailedException>
         runtime_assert_failed_exception_;
     std::optional<std::string> runtime_exception_;
-    std::optional<neotest::SkipInfo> skip_info_;
+    std::optional<neotest::SkipException> skip_exception_;
     static ExecuteCaseInfo* current_;
 };
 
