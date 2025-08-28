@@ -48,10 +48,10 @@ ExecuteCaseInfo& ExecuteCaseInfo::execute_stop(void)noexcept{
     return *this;
 }
 double ExecuteCaseInfo::get_duration_ns(void)const noexcept{
-    return this->timer_.delta_nanoseconds();
+    return this->timer_.duration_nanoseconds();
 }
 std::string ExecuteCaseInfo::get_duration_string(void)const noexcept{
-    return this->timer_.delta_string();
+    return this->timer_.duration_string();
 }
 //runtime check
 bool ExecuteCaseInfo::has_runtime_check_failed_errors(void)const noexcept{
@@ -98,6 +98,10 @@ ExecuteCaseInfo const& ExecuteCaseInfo::runtime_check_failed_errors_foreach(
         func(error);
     }
     return *this;
+}
+std::vector<neotest::RuntimeCheckFailedError> const&
+    ExecuteCaseInfo::get_runtime_check_errors(void)const noexcept{
+    return this->runtime_check_failed_errors_;
 }
 //runtime assert
 ExecuteCaseInfo& ExecuteCaseInfo::runtime_assert_total_increment(void)noexcept{

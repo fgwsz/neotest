@@ -53,6 +53,8 @@ public:
     ExecuteCaseInfo const& runtime_check_failed_errors_foreach(
         std::function<void(neotest::RuntimeCheckFailedError const&)>const& func
     )const noexcept;
+    std::vector<neotest::RuntimeCheckFailedError> const&
+        get_runtime_check_errors(void)const noexcept;
     //runtime assert
     ExecuteCaseInfo& runtime_assert_total_increment(void)noexcept;
     ExecuteCaseInfo& runtime_assert_passed_increment(void)noexcept;

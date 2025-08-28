@@ -18,7 +18,7 @@ struct SourceInfo{
     neotest::SourceInfo{ \
         __FILE__ \
         ,NEOTEST_TO_STRING(__LINE__) \
-        ,__VA_ARGS__ \
+        ,std::string{__VA_ARGS__} \
     } \
 //
 

@@ -11,14 +11,10 @@ namespace neotest{
 class SkipException
     :public std::exception{
 public:
-    SkipException(SkipException const&)noexcept
-        =default;
-    SkipException(SkipException &&)noexcept
-        =default;
-    SkipException&
-        operator=(SkipException const&)noexcept=default;
-    SkipException&
-        operator=(SkipException &&)noexcept=default;
+    SkipException(SkipException const&)noexcept=default;
+    SkipException(SkipException &&)noexcept=default;
+    SkipException& operator=(SkipException const&)noexcept=default;
+    SkipException& operator=(SkipException &&)noexcept=default;
     virtual ~SkipException(void)noexcept=default;
 
     SkipException(
