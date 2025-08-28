@@ -8,8 +8,8 @@ NEOTEST_CASE("Hello"){
     NEOTEST_RUNTIME_CHECK_EQ(0,0-3)<<"[msg]: "<<int{1};
     NEOTEST_RUNTIME_CHECK_EQ(1,1-3)<<"msg 2";
     NEOTEST_RUNTIME_CHECK_EQ(2,2-3)<<"msg 3";
+    NEOTEST_RUNTIME_ASSERT_EQ(1+2,2)<<"msg assert failed!";
     NEOTEST_SKIP("this is skip reason!");
-    NEOTEST_RUNTIME_ASSERT_EQ(1+2,2);
 }
 NEOTEST_CASE("world!"){
     NEOTEST_RUNTIME_CHECK_EQ(1+2,2);
@@ -53,12 +53,14 @@ std::string execute_case_info_to_string(
                     error.info
                 )
             );
-            ret.append(
-                var_str(
-                    std::format("runtime_check_failed_errors[{}].msg",index),
-                    error.msg
-                )
-            );
+            if(error.msg.has_value()){
+                ret.append(
+                    var_str(
+                        std::format("runtime_check_failed_errors[{}].msg",index),
+                        error.msg.value()
+                    )
+                );
+            }
             ++index;
         };
         ei.runtime_check_failed_errors_foreach(func);
@@ -75,6 +77,9 @@ std::string execute_case_info_to_string(
         ret.append(var_str("runtime_assert_failed_exception.file",exception.file()));
         ret.append(var_str("runtime_assert_failed_exception.line",exception.line()));
         ret.append(var_str("runtime_assert_failed_exception.info",exception.info()));
+        if(exception.has_msg()){
+            ret.append(var_str("runtime_assert_failed_exception.msg",exception.msg()));
+        }
     }
 
     if(ei.has_runtime_exception()){

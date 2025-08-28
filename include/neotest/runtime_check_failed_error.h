@@ -3,12 +3,14 @@
 
 #include<string_view>//std::string_view
 #include<string>//std::string
+#include<optional>//std::optional
 
 namespace neotest{
 
 struct RuntimeCheckFailedError{
     std::string_view file,line;
-    std::string info,msg;
+    std::string info;
+    std::optional<std::string> msg;
 };
 
 }//namespace neotest
