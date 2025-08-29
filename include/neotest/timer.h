@@ -1,8 +1,8 @@
 #ifndef NEOTEST_TIMER_H
 #define NEOTEST_TIMER_H
 
-#include<string>//std::string
-#include<chrono>//std::chrono
+#include<string>//::std::string
+#include<chrono>//::std::chrono
 
 namespace neotest{
 
@@ -16,9 +16,9 @@ public:
     double duration_seconds(void)const noexcept;
     double duration_minutes(void)const noexcept;
     double duration_hours(void)const noexcept;
-    std::string duration_string(void)const noexcept;
+    ::std::string duration_string(void)const noexcept;
 private:
-    using clock=std::chrono::high_resolution_clock;
+    using clock=::std::chrono::high_resolution_clock;
     using time_point=typename clock::time_point;
     time_point begin_,end_;
 };

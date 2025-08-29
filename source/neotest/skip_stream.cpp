@@ -5,11 +5,11 @@
 
 namespace neotest{
 
-SkipStream::SkipStream(neotest::SourceInfo const& si)noexcept
+SkipStream::SkipStream(::neotest::SourceInfo const& si)noexcept
     :info_(si),message_({})
 {}
 SkipStream::~SkipStream(void)noexcept(false){
-    auto se=neotest::SkipException(
+    auto se=::neotest::SkipException(
         this->info_.file
         ,this->info_.line
         ,this->info_.info

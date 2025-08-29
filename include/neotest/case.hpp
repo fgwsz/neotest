@@ -1,6 +1,8 @@
 #ifndef NEOTEST_CASE_HPP
 #define NEOTEST_CASE_HPP
 
+#include<string_view>//::std::string_view
+
 #include"static_string.hpp"
 #include"case_dict.h"
 
@@ -16,12 +18,12 @@ struct Case;
 template<> \
 struct neotest::Case<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>{ \
     static void body(void); \
-    inline static bool regist_flag=neotest::CaseDict::regist( \
-        std::string_view{__VA_ARGS__} \
-        ,&neotest::Case<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>::body \
+    inline static bool regist_flag=::neotest::CaseDict::regist( \
+        ::std::string_view{__VA_ARGS__} \
+        ,&::neotest::Case<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>::body \
     ); \
 }; \
-void neotest::Case<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>::body(void) \
+void ::neotest::Case<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>::body(void) \
 //
 
 #endif//NEOTEST_CASE_HPP

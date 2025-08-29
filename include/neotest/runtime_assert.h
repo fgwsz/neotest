@@ -5,15 +5,19 @@
 #include"runtime_assert_stream.hpp"
 
 #define NEOTEST_RUNTIME_ASSERT(...) \
-    neotest::RuntimeAssertStream(NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__)) \
+    ::neotest::RuntimeAssertStream( \
+        NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__) \
+    ) \
 //
 #define NEOTEST_RUNTIME_ASSERT_UNARY_OPERATOR(operator__,...) \
-    neotest::RuntimeAssertStream( \
-        NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR(operator__,__VA_ARGS__) \
+    ::neotest::RuntimeAssertStream( \
+        NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR( \
+            operator__,__VA_ARGS__ \
+        ) \
     ) \
 //
 #define NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(operator__,lhs__,...) \
-    neotest::RuntimeAssertStream( \
+    ::neotest::RuntimeAssertStream( \
         NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR( \
             operator__,lhs__,__VA_ARGS__ \
         ) \

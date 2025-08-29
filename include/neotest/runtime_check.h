@@ -5,15 +5,19 @@
 #include"runtime_check_stream.hpp"
 
 #define NEOTEST_RUNTIME_CHECK(...) \
-    neotest::RuntimeCheckStream(NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__)) \
+    ::neotest::RuntimeCheckStream( \
+        NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__) \
+    ) \
 //
 #define NEOTEST_RUNTIME_CHECK_UNARY_OPERATOR(operator__,...) \
-    neotest::RuntimeCheckStream( \
-        NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR(operator__,__VA_ARGS__) \
+    ::neotest::RuntimeCheckStream( \
+        NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR( \
+            operator__,__VA_ARGS__ \
+        ) \
     ) \
 //
 #define NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(operator__,lhs__,...) \
-    neotest::RuntimeCheckStream( \
+    ::neotest::RuntimeCheckStream( \
         NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR( \
             operator__,lhs__,__VA_ARGS__ \
         ) \

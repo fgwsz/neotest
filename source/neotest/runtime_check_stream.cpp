@@ -5,20 +5,21 @@
 
 namespace neotest{
 
-RuntimeCheckStream::RuntimeCheckStream(neotest::ConditionInfo const& ci)noexcept
+RuntimeCheckStream::RuntimeCheckStream(::neotest::ConditionInfo const& ci)
+noexcept
     :info_(ci)
     ,message_({})
 {}
 RuntimeCheckStream::~RuntimeCheckStream(void)noexcept{
-    std::optional<neotest::RuntimeCheckFailedError> error={};
+    ::std::optional<::neotest::RuntimeCheckFailedError> error={};
     if(!this->info_.condition){
-        error=neotest::RuntimeCheckFailedError{
+        error=::neotest::RuntimeCheckFailedError{
             this->info_.file
             ,this->info_.line
             ,this->info_.info
         };
     }
-    auto& current=neotest::ExecuteCaseInfo::get_current();
+    auto& current=::neotest::ExecuteCaseInfo::get_current();
     current.runtime_check_total_increment();
     if(!error.has_value()){
         current.runtime_check_passed_increment();

@@ -1,30 +1,30 @@
 #ifndef NEOTEST_ORDERED_MAP_HPP
 #define NEOTEST_ORDERED_MAP_HPP
 
-#include<cstddef>//std::size_t
+#include<cstddef>//::std::size_t
 
-#include<type_traits>//std::is_same_v std::decay_t
-#include<list>//std::list
-#include<unordered_map>//std::unordered_map
-#include<utility>//std::move
-#include<stdexcept>//std::runtime_error
-#include<functional>//std::function
+#include<type_traits>//::std::is_same_v ::std::decay_t
+#include<list>//::std::list
+#include<unordered_map>//::std::unordered_map
+#include<utility>//::std::move
+#include<stdexcept>//::std::runtime_error
+#include<functional>//::std::function
 
 namespace neotest{
 
 template<typename KeyType__,typename ValueType__>
 requires
-    std::is_same_v<std::decay_t<KeyType__>,KeyType__>&&
-    std::is_same_v<std::decay_t<ValueType__>,ValueType__>
+    ::std::is_same_v<::std::decay_t<KeyType__>,KeyType__>&&
+    ::std::is_same_v<::std::decay_t<ValueType__>,ValueType__>
 class OrderedMap final{
     struct Pair{
         KeyType__ const key_;
         ValueType__ value_;
     };
     using pair_t=Pair;
-    using list_iterator=typename std::list<pair_t>::iterator;
-    std::unordered_map<KeyType__,list_iterator> map_;
-    std::list<pair_t> list_;
+    using list_iterator=typename ::std::list<pair_t>::iterator;
+    ::std::unordered_map<KeyType__,list_iterator> map_;
+    ::std::list<pair_t> list_;
 public:
     constexpr OrderedMap(void)noexcept
         :map_({})
@@ -36,7 +36,7 @@ public:
     }
     constexpr OrderedMap(OrderedMap&& rhs)noexcept
         :OrderedMap(){
-        *this=std::move(rhs);
+        *this=::std::move(rhs);
     }
     constexpr OrderedMap& operator=(OrderedMap const& rhs)noexcept{
         if(this==&rhs){
@@ -54,8 +54,8 @@ public:
         if(this==&rhs){
             return *this;
         }
-        this->list_=std::move(rhs.list_);
-        this->map_=std::move(rhs.map_);
+        this->list_=::std::move(rhs.list_);
+        this->map_=::std::move(rhs.map_);
         return *this;
     }
     constexpr OrderedMap& swap(OrderedMap& rhs)noexcept{
@@ -71,7 +71,7 @@ public:
         ValueType__ const& value
     ){
         if(this->contains(key)){
-            throw std::runtime_error(
+            throw ::std::runtime_error(
                 "OrderedMap::insert(): "
                 "This key already exists."
             );
@@ -84,7 +84,7 @@ public:
     }
     constexpr OrderedMap& erase(KeyType__ const& key){
         if(!this->contains(key)){
-            throw std::runtime_error(
+            throw ::std::runtime_error(
                 "OrderedMap::erase(): "
                 "Can't find this key."
             );
@@ -100,7 +100,7 @@ public:
     }
     constexpr ValueType__ const& get(KeyType__ const& key)const{
         if(!this->contains(key)){
-            throw std::runtime_error(
+            throw ::std::runtime_error(
                 "OrderedMap::get(): "
                 "Can't find this key."
             );
@@ -112,7 +112,7 @@ public:
         ValueType__ const& value
     ){
         if(!this->contains(key)){
-            throw std::runtime_error(
+            throw ::std::runtime_error(
                 "OrderedMap::update() :"
                 "Can't find this key."
             );
@@ -131,14 +131,14 @@ public:
         }
         return *this;
     }
-    constexpr std::size_t size(void)const noexcept{
+    constexpr ::std::size_t size(void)const noexcept{
         return this->map_.size();
     }
     constexpr bool empty(void)const noexcept{
         return this->size()==0;
     }
     constexpr OrderedMap& foreach(
-        std::function<void(KeyType__ const&,ValueType__&)>const& func
+        ::std::function<void(KeyType__ const&,ValueType__&)>const& func
     ){
         for(auto& pair:this->list_){
             func(pair.key_,pair.value_);
@@ -146,7 +146,7 @@ public:
         return *this;
     }
     constexpr OrderedMap const& foreach(
-        std::function<void(KeyType__ const&,ValueType__ const&)>const& func
+        ::std::function<void(KeyType__ const&,ValueType__ const&)>const& func
     )const{
         for(auto const& pair:this->list_){
             func(pair.key_,pair.value_);
@@ -154,7 +154,8 @@ public:
         return *this;
     }
     constexpr OrderedMap& foreach(
-        std::function<void(KeyType__ const&,ValueType__&)noexcept>const& func
+        ::std::function<void(KeyType__ const&,ValueType__&)noexcept>const&
+            func
     )noexcept{
         for(auto& pair:this->list_){
             func(pair.key_,pair.value_);
@@ -162,7 +163,8 @@ public:
         return *this;
     }
     constexpr OrderedMap const& foreach(
-        std::function<void(KeyType__ const&,ValueType__ const&)noexcept>const& func
+        ::std::function<void(KeyType__ const&,ValueType__ const&)noexcept>
+            const& func
     )const noexcept{
         for(auto const& pair:this->list_){
             func(pair.key_,pair.value_);
