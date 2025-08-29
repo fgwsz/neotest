@@ -1,6 +1,7 @@
 #include"execute.h"
 
 #include<format>//std::format
+#include<regex>//std::regex_match
 
 #include"case_dict.h"
 #include"execute_case_info.h"
@@ -45,6 +46,22 @@ neotest::ExecuteCaseInfo execute_case(
     }
     ci.execute_stop();
     return ci;
+}
+
+std::vector<neotest::ExecuteCaseInfo> execute_case(
+    std::regex const& case_name_regex
+)noexcept{
+    std::vector<neotest::ExecuteCaseInfo> ret={};
+    neotest::CaseDict::get().foreach(
+        [&](std::string_view case_name,auto const& case_body)noexcept{
+            static std::string name={};
+            name=case_name;//std::string_view to std::string
+            if(std::regex_match(name,case_name_regex)){
+                ret.emplace_back(neotest::execute_case(case_name));
+            }
+        }
+    );
+    return ret;
 }
 
 }//namespace neotest

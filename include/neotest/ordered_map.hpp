@@ -139,7 +139,7 @@ public:
     }
     constexpr OrderedMap& foreach(
         std::function<void(KeyType__ const&,ValueType__&)>const& func
-    )noexcept{
+    ){
         for(auto& pair:this->list_){
             func(pair.key_,pair.value_);
         }
@@ -147,6 +147,22 @@ public:
     }
     constexpr OrderedMap const& foreach(
         std::function<void(KeyType__ const&,ValueType__ const&)>const& func
+    )const{
+        for(auto const& pair:this->list_){
+            func(pair.key_,pair.value_);
+        }
+        return *this;
+    }
+    constexpr OrderedMap& foreach(
+        std::function<void(KeyType__ const&,ValueType__&)noexcept>const& func
+    )noexcept{
+        for(auto& pair:this->list_){
+            func(pair.key_,pair.value_);
+        }
+        return *this;
+    }
+    constexpr OrderedMap const& foreach(
+        std::function<void(KeyType__ const&,ValueType__ const&)noexcept>const& func
     )const noexcept{
         for(auto const& pair:this->list_){
             func(pair.key_,pair.value_);
