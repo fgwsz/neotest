@@ -69,6 +69,11 @@ std::string value_to_json(
     ,std::size_t tab_width=neotest::default_tab_width
     ,std::size_t current_tab_number=0
 )noexcept;
+std::string value_to_json(
+    std::vector<neotest::ExecuteCaseInfo> const& ei_vec
+    ,std::size_t tab_width=neotest::default_tab_width
+    ,std::size_t current_tab_number=0
+)noexcept;
 
 }//namespace neotest
 

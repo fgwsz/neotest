@@ -234,4 +234,26 @@ std::string value_to_json(
     return ret;
 }
 
+std::string value_to_json(
+    std::vector<neotest::ExecuteCaseInfo> const& ei_vec
+    ,std::size_t tab_width
+    ,std::size_t current_tab_number
+)noexcept{
+    std::string ret={"["};
+    for(auto const& ei:ei_vec){
+        ret+=std::format(
+            "\n{}{},"
+            ,std::string(tab_width*(current_tab_number+1),' ')
+            ,value_to_json(ei,tab_width,current_tab_number+1)
+        );
+    }
+    if(!ei_vec.empty()){
+        ret.pop_back();//remove last ','
+        ret+=
+            std::format("\n{}",std::string(tab_width*current_tab_number,' '));
+    }
+    ret+=']';
+    return ret;
+}
+
 }//namespace neotest
