@@ -1,5 +1,7 @@
 #include"execute_case_info.h"
 
+#include"case_dict.h"
+
 namespace neotest{
 
 ExecuteCaseInfo* ExecuteCaseInfo::current_=nullptr;
@@ -181,9 +183,14 @@ ExecuteCaseInfo::State ExecuteCaseInfo::get_state(void)const noexcept{
     return ExecuteCaseInfo::State::Passed;
 }
 bool ExecuteCaseInfo::is_passed(void)const noexcept{
-    return (!this->is_failed())&&(!this->is_skipped());
+    return (!this->is_undefined())
+        &&(!this->is_failed())
+        &&(!this->is_skipped());
 }
 bool ExecuteCaseInfo::is_failed(void)const noexcept{
+    if(this->is_undefined()){
+        return false;
+    }
     if(this->is_skipped()){
         return false;
     }
@@ -195,7 +202,7 @@ bool ExecuteCaseInfo::is_skipped(void)const noexcept{
     return (!this->is_undefined())&&(this->has_skip());
 }
 bool ExecuteCaseInfo::is_undefined(void)const noexcept{
-    return this->case_name_.empty();
+    return !(::neotest::CaseDict::get().contains(this->case_name_));
 }
 //skip
 ExecuteCaseInfo&

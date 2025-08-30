@@ -169,6 +169,9 @@ namespace neotest{
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
+    if(ei.is_undefined()){
+        return "null";
+    }
     ::std::string ret={"{"};
     ::std::size_t current_space_number=tab_width*current_tab_number;
     ::std::size_t next_space_number=tab_width*(current_tab_number+1);
@@ -267,6 +270,9 @@ namespace neotest{
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
+    if(ei.is_undefined()){
+        return "null";
+    }
     ::std::string ret={"{"};
     ::std::size_t current_space_number=tab_width*current_tab_number;
     ::std::size_t next_space_number=tab_width*(current_tab_number+1);
@@ -307,21 +313,12 @@ namespace neotest{
     for(auto const& info:ei.get_data()){
         if(::std::holds_alternative<::neotest::ExecuteCaseInfo>(info)){
             auto const& ci=::std::get<::neotest::ExecuteCaseInfo>(info);
-            if(ci.is_undefined()){
-                ret+=::std::format(
-                    "\n{}{}{},"
-                    ,::std::string(tab_width*(current_tab_number+2),' ')
-                    ,key_to_json(ci.get_case_name())
-                    ,"undefined"
-                );
-            }else{
-                ret+=::std::format(
-                    "\n{}{}{},"
-                    ,::std::string(tab_width*(current_tab_number+2),' ')
-                    ,key_to_json(ci.get_case_name())
-                    ,value_to_json(ci,tab_width,current_tab_number+2)
-                );
-            }
+            ret+=::std::format(
+                "\n{}{}{},"
+                ,::std::string(tab_width*(current_tab_number+2),' ')
+                ,key_to_json(ci.get_case_name())
+                ,value_to_json(ci,tab_width,current_tab_number+2)
+            );
         }else{
             auto const& ri=::std::get<
                 typename ::neotest::ExecuteGroupInfo::case_regex_info_type

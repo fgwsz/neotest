@@ -15,7 +15,7 @@ namespace neotest{
 )noexcept{
     auto& case_dict=::neotest::CaseDict::get();
     if(!case_dict.contains(case_name)){
-        return ::neotest::ExecuteCaseInfo{};
+        return ::neotest::ExecuteCaseInfo{case_name};
     }
     auto const& case_body=case_dict.get(case_name);
     ::neotest::ExecuteCaseInfo ci;
@@ -75,7 +75,7 @@ namespace neotest{
 )noexcept{
     auto& group_dict=::neotest::GroupDict::get();
     if(!group_dict.contains(group_name)){
-        return ::neotest::ExecuteGroupInfo{};
+        return ::neotest::ExecuteGroupInfo{group_name};
     }
     auto const& group_data=*(group_dict.get(group_name));
     auto& case_dict=::neotest::CaseDict::get();

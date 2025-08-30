@@ -18,6 +18,7 @@ NEOTEST_GROUP("test group"){
     NEOTEST_GROUP_ELEMENT_CASE("test.Hello");
     NEOTEST_GROUP_ELEMENT_CASE("test.World");
     NEOTEST_GROUP_ELEMENT_CASE_REGEX(R"(^test\..*)");
+    NEOTEST_GROUP_ELEMENT_CASE("test.Undefined");
 }
 int main(int argc,char* argv[]){
     auto ei_vec=::neotest::execute_group(::std::regex("^test .*"));

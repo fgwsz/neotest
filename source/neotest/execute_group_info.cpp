@@ -1,5 +1,7 @@
 #include"execute_group_info.h"
 
+#include"group_dict.h"
+
 namespace neotest{
 
 ExecuteGroupInfo::ExecuteGroupInfo(::std::string_view name)noexcept
@@ -104,7 +106,7 @@ bool ExecuteGroupInfo::is_skipped(void)const noexcept{
         &&(this->case_total_==this->case_skipped_);
 }
 bool ExecuteGroupInfo::is_undefined(void)const noexcept{
-    return this->name_.empty();
+    return !(::neotest::GroupDict::get().contains(this->name_));
 }
 ExecuteGroupInfo& ExecuteGroupInfo::data_push_back(
     ::std::string_view case_name
