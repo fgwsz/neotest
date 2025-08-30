@@ -2,15 +2,52 @@
 
 #include<format>//::std::format
 #include<string>//::std::to_string
+#include<sstream>//::std::ostringstream
 
 namespace neotest{
 
+namespace detail{
+
+::std::string string_to_json_value(::std::string_view input)noexcept{
+    ::std::ostringstream oss;
+    oss<<"\"";//开始双引号
+    for(char ch:input){
+        switch(ch){
+            case '\"':{ oss<<R"(\")"; break; }//双引号
+            case '\\':{ oss<<R"(\\)"; break; }//反斜杠
+            case '\n':{ oss<<R"(\n)"; break; }//换行
+            case '\r':{ oss<<R"(\r)"; break; }//回车
+            case '\t':{ oss<<R"(\t)"; break; }//制表符
+            case '\b':{ oss<<R"(\b)"; break; }//退格
+            case '\f':{ oss<<R"(\f)"; break; }//换页
+            default  :{
+                //处理其他控制字符(ASCII 0-31)
+                if(static_cast<unsigned char>(ch)<=0x1F){
+                    oss<<"\\u00"<<std::hex<<std::uppercase
+                        <<std::setw(2)<<std::setfill('0')
+                        <<static_cast<unsigned int>(
+                            static_cast<unsigned char>(ch)
+                        );
+                }else{
+                    oss<<ch;//普通字符
+                }
+                break;
+            }
+        }
+    }
+    oss<<"\"";//结束双引号
+    return oss.str();
+}
+
+}//namespace neotest::detail
+
+
 ::std::string key_to_json(::std::string_view name)noexcept{
-    return ::std::format("\"{}\":",name);
+    return ::std::format("{}:",::neotest::detail::string_to_json_value(name));
 }
 
 ::std::string key_to_json(::std::string const& name)noexcept{
-    return ::std::format("\"{}\":",name);
+    return ::std::format("{}:",::neotest::detail::string_to_json_value(name));
 }
 
 ::std::string value_to_json(
@@ -30,7 +67,7 @@ namespace neotest{
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
-    return ::std::format("\"{}\"",sv);
+    return ::neotest::detail::string_to_json_value(sv);
 }
 
 ::std::string value_to_json(
@@ -38,7 +75,7 @@ namespace neotest{
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
-    return ::std::format("\"{}\"",str);
+    return ::neotest::detail::string_to_json_value(str);
 }
 
 ::std::string value_to_json(

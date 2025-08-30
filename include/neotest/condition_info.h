@@ -3,6 +3,7 @@
 
 #include<string_view>//::std::string_view
 #include<string>//::std::string
+#include<ios>//std::boolalpha
 #include<sstream>//::std::ostringstream
 
 #include"macro.h"
@@ -31,8 +32,9 @@ struct ConditionInfo{
         ,NEOTEST_TO_STRING(__LINE__) \
         ,( \
             ::std::ostringstream{} \
+                <<::std::boolalpha \
                 <<NEOTEST_TO_STRING(operator__) " " \
-                <<(__VA_ARGS__) \
+                <<"("<<(__VA_ARGS__)<<")" \
         ).str() \
         ,static_cast<bool>(operator__ (__VA_ARGS__)) \
     } \
@@ -45,9 +47,10 @@ struct ConditionInfo{
         ,NEOTEST_TO_STRING(__LINE__) \
         ,( \
             ::std::ostringstream{} \
-                <<(lhs__) \
+                <<::std::boolalpha \
+                <<"("<<(lhs__)<<")" \
                 <<" " NEOTEST_TO_STRING(operator__) " " \
-                <<(__VA_ARGS__) \
+                <<"("<<(__VA_ARGS__)<<")" \
         ).str() \
         ,static_cast<bool>((lhs__) operator__ (__VA_ARGS__)) \
     } \
