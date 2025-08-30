@@ -6,7 +6,7 @@
 
 #define NEOTEST_RUNTIME_CHECK(...) \
     ::neotest::RuntimeCheckStream( \
-        NEOTEST_MAKE_CONDITION_INFO(__VA_ARGS__) \
+        NEOTEST_MAKE_CONDITION_INFO((true) == (__VA_ARGS__)) \
     ) \
 //
 #define NEOTEST_RUNTIME_CHECK_UNARY_OPERATOR(operator__,...) \
@@ -48,7 +48,9 @@
     NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(||,lhs__,__VA_ARGS__) \
 //
 #define NEOTEST_RUNTIME_CHECK_NOT(...) \
-    NEOTEST_RUNTIME_CHECK_UNARY_OPERATOR(!,(__VA_ARGS__)) \
+    ::neotest::RuntimeCheckStream( \
+        NEOTEST_MAKE_CONDITION_INFO((false) == (__VA_ARGS__)) \
+    ) \
 //
 
 #endif//NEOTEST_RUNTIME_CHECK_H

@@ -2,10 +2,10 @@
 
 #include"neotest/neotest.h"
 
-#define TEST_SAMPLE_1
-#include"sample1.h"
+#define TEST_SAMPLE_3
+#include"sample3.h"
 
 int main(int argc,char* argv[]){
-    ::test_file_output();
+    ::test_sample_3();
     return 0;
 }
