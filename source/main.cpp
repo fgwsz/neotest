@@ -20,7 +20,7 @@ NEOTEST_GROUP("test group"){
     NEOTEST_GROUP_ELEMENT_CASE_REGEX(R"(^test\..*)");
 }
 int main(int argc,char* argv[]){
-    auto ei_vec=::neotest::execute_case(::std::regex(R"(^test\..*)"));
+    auto ei_vec=::neotest::execute_group(::std::regex("^test .*"));
     ::std::cout<<::neotest::value_to_json(ei_vec)<<'\n';
     return 0;
 }

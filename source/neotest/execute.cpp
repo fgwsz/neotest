@@ -92,21 +92,24 @@ namespace neotest{
             ei.case_undefined_increment();
         }
     };
+    ei.set_name(group_name);
     ei.execute_start();
     for(auto const& element:group_data){
         if(std::holds_alternative<::std::string_view>(element)){
-            auto const& case_name=std::get<::std::string_view>(element);
+            auto const& case_name=::std::get<::std::string_view>(element);
             //
             auto ci=::neotest::execute_case(case_name);
+            ci.set_group_name(ei.get_name());
             ei_case_increment(ci);
             ei.data_push_back(case_name,ci);
         }else{
-            auto const& case_regex=std::get<::neotest::RegEx>(element);
-            //TODO
-            ei.data_push_back(
-                case_regex.pattern
-                ,::neotest::execute_case(case_regex.object)
-            );
+            auto const& case_regex=::std::get<::neotest::RegEx>(element);
+            auto ri=::neotest::execute_case(case_regex.object);
+            for(auto& ci:ri){
+                ci.set_group_name(ei.get_name());
+                ei_case_increment(ci);
+            }
+            ei.data_push_back(case_regex.pattern,ri);
         }
     }
     ei.execute_stop();

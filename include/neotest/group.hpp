@@ -34,7 +34,7 @@ struct Group;
                 ::std::string_view{__VA_ARGS__} \
                 ,&self_type::body_ \
             ); \
-        }; \
+        }(); \
     }; \
     void ::neotest::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>::init( \
         typename ::neotest::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)> \
