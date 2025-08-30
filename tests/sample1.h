@@ -8,6 +8,8 @@
 
 #include"neotest/neotest.h"
 
+#ifdef TEST_SAMPLE_1
+
 NEOTEST_CASE("c_str_exception"){
     throw "c_str exception";
 }
@@ -220,6 +222,9 @@ NEOTEST_GROUP("failed_group"){
     NEOTEST_GROUP_ELEMENT_CASE("assert_failed_23");
     NEOTEST_GROUP_ELEMENT_CASE("undefined");
 }
+
+#endif//TEST_SAMPLE_1
+
 void test_console_output(void)noexcept{
     ::std::cout<<::neotest::execute_case_all_to_json()<<'\n';
     ::std::cout<<::neotest::execute_group_all_to_json()<<'\n';
