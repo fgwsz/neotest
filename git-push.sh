@@ -6,6 +6,7 @@ if [ "$commit_info" != "q" ]; then
     cd "$root_path"
     git add ./include/*
     git add ./source/*
+    git add ./tests/*
     git add ./CMakeLists.txt
     git add ./LICENSE
     git add ./README.md

@@ -1,0 +1,238 @@
+#ifndef SAMPLE_1_H
+#define SAMPLE_1_H
+
+#include<stdexcept>//std::runtime_error
+#include<ios>//std::ios
+#include<iostream>//std::cout
+#include<fstream>//std::ofstream
+
+#include"neotest/neotest.h"
+
+NEOTEST_CASE("c_str_exception"){
+    throw "c_str exception";
+}
+NEOTEST_CASE("string_exception"){
+    throw "string exception";
+}
+NEOTEST_CASE("std_exception"){
+    throw std::runtime_error{"std::exception"};
+}
+NEOTEST_CASE("unknown_exception"){
+    struct Foo{};
+    throw Foo{};
+}
+NEOTEST_CASE("empty_c_str_exception"){
+    throw "";
+}
+NEOTEST_CASE("empty_string_exception"){
+    throw std::string{""};
+}
+NEOTEST_CASE("empty_std_exception"){
+    throw std::runtime_error{""};
+}
+NEOTEST_CASE("check_passed"){
+    NEOTEST_RUNTIME_CHECK(1==1);
+    NEOTEST_RUNTIME_CHECK(2!=1);
+    NEOTEST_RUNTIME_CHECK(2>1);
+    NEOTEST_RUNTIME_CHECK(2>=1);
+    NEOTEST_RUNTIME_CHECK(2>=2);
+    NEOTEST_RUNTIME_CHECK(1<2);
+    NEOTEST_RUNTIME_CHECK(1<=2);
+    NEOTEST_RUNTIME_CHECK(1<=1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(==,1,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(!=,2,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(>,2,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(>=,2,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(>=,2,2);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(<,1,2);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(<=,1,2);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(<=,1,1);
+    NEOTEST_RUNTIME_CHECK_EQ(1,1);
+    NEOTEST_RUNTIME_CHECK_NE(2,1);
+    NEOTEST_RUNTIME_CHECK_GT(2,1);
+    NEOTEST_RUNTIME_CHECK_GE(2,1);
+    NEOTEST_RUNTIME_CHECK_GE(2,2);
+    NEOTEST_RUNTIME_CHECK_LT(1,2);
+    NEOTEST_RUNTIME_CHECK_LE(1,2);
+    NEOTEST_RUNTIME_CHECK_LE(1,1);
+    NEOTEST_RUNTIME_CHECK_AND(true,true);
+    NEOTEST_RUNTIME_CHECK_OR(false,true);
+    NEOTEST_RUNTIME_CHECK_NOT(false);
+}
+NEOTEST_CASE("check_failed"){
+    NEOTEST_RUNTIME_CHECK(!(1==1));
+    NEOTEST_RUNTIME_CHECK(!(2!=1));
+    NEOTEST_RUNTIME_CHECK(!(2>1));
+    NEOTEST_RUNTIME_CHECK(!(2>=1));
+    NEOTEST_RUNTIME_CHECK(!(2>=2));
+    NEOTEST_RUNTIME_CHECK(!(1<2));
+    NEOTEST_RUNTIME_CHECK(!(1<=2));
+    NEOTEST_RUNTIME_CHECK(!(1<=1));
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(==,2,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(!=,1,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(>,2,2);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(>=,1,2);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(<,1,1);
+    NEOTEST_RUNTIME_CHECK_BINARY_OPERATOR(<=,2,1);
+    NEOTEST_RUNTIME_CHECK_EQ(2,1);
+    NEOTEST_RUNTIME_CHECK_NE(1,1);
+    NEOTEST_RUNTIME_CHECK_GT(2,2);
+    NEOTEST_RUNTIME_CHECK_GE(1,2);
+    NEOTEST_RUNTIME_CHECK_LT(1,1);
+    NEOTEST_RUNTIME_CHECK_LE(2,1);
+    NEOTEST_RUNTIME_CHECK_AND(true,false);
+    NEOTEST_RUNTIME_CHECK_OR(false,false);
+    NEOTEST_RUNTIME_CHECK_NOT(true);
+}
+NEOTEST_CASE("assert_passed"){
+    NEOTEST_RUNTIME_ASSERT(1==1);
+    NEOTEST_RUNTIME_ASSERT(2!=1);
+    NEOTEST_RUNTIME_ASSERT(2>1);
+    NEOTEST_RUNTIME_ASSERT(2>=1);
+    NEOTEST_RUNTIME_ASSERT(2>=2);
+    NEOTEST_RUNTIME_ASSERT(1<2);
+    NEOTEST_RUNTIME_ASSERT(1<=2);
+    NEOTEST_RUNTIME_ASSERT(1<=1);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(==,1,1);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(!=,2,1);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(>,2,1);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(>=,2,1);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(>=,2,2);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(<,1,2);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(<=,1,2);
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(<=,1,1);
+    NEOTEST_RUNTIME_ASSERT_EQ(1,1);
+    NEOTEST_RUNTIME_ASSERT_NE(2,1);
+    NEOTEST_RUNTIME_ASSERT_GT(2,1);
+    NEOTEST_RUNTIME_ASSERT_GE(2,1);
+    NEOTEST_RUNTIME_ASSERT_GE(2,2);
+    NEOTEST_RUNTIME_ASSERT_LT(1,2);
+    NEOTEST_RUNTIME_ASSERT_LE(1,2);
+    NEOTEST_RUNTIME_ASSERT_LE(1,1);
+    NEOTEST_RUNTIME_ASSERT_AND(true,true);
+    NEOTEST_RUNTIME_ASSERT_OR(false,true);
+    NEOTEST_RUNTIME_ASSERT_NOT(false);
+}
+NEOTEST_CASE("assert_failed_1"){
+    NEOTEST_RUNTIME_ASSERT(!(1==1));
+}
+NEOTEST_CASE("assert_failed_2"){
+    NEOTEST_RUNTIME_ASSERT(!(2!=1));
+}
+NEOTEST_CASE("assert_failed_3"){
+    NEOTEST_RUNTIME_ASSERT(!(2>1));
+}
+NEOTEST_CASE("assert_failed_4"){
+    NEOTEST_RUNTIME_ASSERT(!(2>=1));
+}
+NEOTEST_CASE("assert_failed_5"){
+    NEOTEST_RUNTIME_ASSERT(!(2>=2));
+}
+NEOTEST_CASE("assert_failed_6"){
+    NEOTEST_RUNTIME_ASSERT(!(1<2));
+}
+NEOTEST_CASE("assert_failed_7"){
+    NEOTEST_RUNTIME_ASSERT(!(1<=2));
+}
+NEOTEST_CASE("assert_failed_8"){
+    NEOTEST_RUNTIME_ASSERT(!(1<=1));
+}
+NEOTEST_CASE("assert_failed_9"){
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(==,2,1);
+}
+NEOTEST_CASE("assert_failed_10"){
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(!=,1,1);
+}
+NEOTEST_CASE("assert_failed_11"){
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(>,2,2);
+}
+NEOTEST_CASE("assert_failed_12"){
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(>=,1,2);
+}
+NEOTEST_CASE("assert_failed_13"){
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(<,1,1);
+}
+NEOTEST_CASE("assert_failed_14"){
+    NEOTEST_RUNTIME_ASSERT_BINARY_OPERATOR(<=,2,1);
+}
+NEOTEST_CASE("assert_failed_15"){
+    NEOTEST_RUNTIME_ASSERT_EQ(2,1);
+}
+NEOTEST_CASE("assert_failed_16"){
+    NEOTEST_RUNTIME_ASSERT_NE(1,1);
+}
+NEOTEST_CASE("assert_failed_17"){
+    NEOTEST_RUNTIME_ASSERT_GT(2,2);
+}
+NEOTEST_CASE("assert_failed_18"){
+    NEOTEST_RUNTIME_ASSERT_GE(1,2);
+}
+NEOTEST_CASE("assert_failed_19"){
+    NEOTEST_RUNTIME_ASSERT_LT(1,1);
+}
+NEOTEST_CASE("assert_failed_20"){
+    NEOTEST_RUNTIME_ASSERT_LE(2,1);
+}
+NEOTEST_CASE("assert_failed_21"){
+    NEOTEST_RUNTIME_ASSERT_AND(true,false);
+}
+NEOTEST_CASE("assert_failed_22"){
+    NEOTEST_RUNTIME_ASSERT_OR(false,false);
+}
+NEOTEST_CASE("assert_failed_23"){
+    NEOTEST_RUNTIME_ASSERT_NOT(true);
+}
+NEOTEST_GROUP("passed_group"){
+    NEOTEST_GROUP_ELEMENT_CASE("check_passed");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_passed");
+}
+NEOTEST_GROUP("failed_group"){
+    NEOTEST_GROUP_ELEMENT_CASE("c_str_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("string_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("std_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("unknown_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("empty_c_str_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("empty_string_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("empty_std_exception");
+    NEOTEST_GROUP_ELEMENT_CASE("check_failed");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_1");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_2");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_3");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_4");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_5");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_6");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_7");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_8");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_9");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_10");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_11");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_12");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_13");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_14");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_15");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_16");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_17");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_18");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_19");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_20");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_21");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_22");
+    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_23");
+    NEOTEST_GROUP_ELEMENT_CASE("undefined");
+}
+void test_console_output(void)noexcept{
+    ::std::cout<<::neotest::execute_case_all_to_json()<<'\n';
+    ::std::cout<<::neotest::execute_group_all_to_json()<<'\n';
+}
+void test_file_output(void)noexcept{
+    ::std::ofstream ofs("sample1.txt",::std::ios::out|::std::ios::trunc);
+    if(ofs.is_open()){
+        ofs<<::neotest::execute_case_all_to_json()<<'\n';
+        ofs<<::neotest::execute_group_all_to_json()<<'\n';
+        ofs.close();
+    }else{
+        std::cout<<"Unable to open file for writing."<<'\n';
+    }
+}
+
+#endif//SAMPLE_1_H
