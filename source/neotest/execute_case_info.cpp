@@ -88,7 +88,7 @@ double ExecuteCaseInfo::get_runtime_check_passed_rate(void)const noexcept{
     return this->runtime_check_total_>0
         ?static_cast<double>(this->runtime_check_passed_)
             /this->runtime_check_total_
-        :0.0;
+        :1.0;
 }
 //runtime check failed errors
 ExecuteCaseInfo& ExecuteCaseInfo::runtime_check_failed_errors_push_back(
@@ -139,7 +139,7 @@ double ExecuteCaseInfo::get_runtime_assert_passed_rate(void)const noexcept{
     return this->runtime_assert_total_>0
         ?static_cast<double>(this->runtime_assert_passed_)
             /this->runtime_assert_total_
-        :0.0;
+        :1.0;
 }
 //runtime assert failed exception
 ExecuteCaseInfo& ExecuteCaseInfo::set_runtime_assert_failed_exception(

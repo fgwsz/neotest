@@ -7,6 +7,7 @@
 #include"execute_case_info.h"
 #include"group_dict.h"
 #include"execute_group_info.h"
+#include"to_json.h"
 
 namespace neotest{
 
@@ -65,6 +66,36 @@ namespace neotest{
             if(::std::regex_match(name,case_name_regex)){
                 ret.emplace_back(::neotest::execute_case(case_name));
             }
+        }
+    );
+    return ret;
+}
+
+::std::vector<::neotest::ExecuteCaseInfo> execute_case(
+    ::std::vector<std::variant<std::string_view,::std::regex>> const&
+        case_name_list
+)noexcept{
+    ::std::vector<::neotest::ExecuteCaseInfo> ret={};
+    for(auto const& element:case_name_list){
+        if(::std::holds_alternative<::std::string_view>(element)){
+            auto const& case_name=::std::get<::std::string_view>(element);
+            ret.emplace_back(::neotest::execute_case(case_name));
+        }else{
+            auto const& case_regex=::std::get<::std::regex>(element);
+            auto ri=::neotest::execute_case(case_regex);
+            for(auto const& info:ri){
+                ret.emplace_back(info);
+            }
+        }
+    }
+    return ret;
+}
+
+::std::vector<::neotest::ExecuteCaseInfo> execute_case_all(void)noexcept{
+    ::std::vector<::neotest::ExecuteCaseInfo> ret={};
+    ::neotest::CaseDict::get().foreach(
+        [&](::std::string_view case_name,auto const& case_body)noexcept{
+            ret.emplace_back(::neotest::execute_case(case_name));
         }
     );
     return ret;
@@ -130,6 +161,84 @@ namespace neotest{
         }
     );
     return ret;
+}
+
+::std::vector<::neotest::ExecuteGroupInfo> execute_group(
+    ::std::vector<std::variant<std::string_view,::std::regex>> const&
+        group_name_list
+)noexcept{
+    ::std::vector<::neotest::ExecuteGroupInfo> ret={};
+    for(auto const& element:group_name_list){
+        if(::std::holds_alternative<::std::string_view>(element)){
+            auto const& group_name=::std::get<::std::string_view>(element);
+            ret.emplace_back(::neotest::execute_group(group_name));
+        }else{
+            auto const& group_regex=::std::get<::std::regex>(element);
+            auto ri=::neotest::execute_group(group_regex);
+            for(auto const& info:ri){
+                ret.emplace_back(info);
+            }
+        }
+    }
+    return ret;
+}
+
+::std::vector<::neotest::ExecuteGroupInfo> execute_group_all(void)noexcept{
+    ::std::vector<::neotest::ExecuteGroupInfo> ret={};
+    ::neotest::GroupDict::get().foreach(
+        [&](::std::string_view group_name,auto const& group_body)noexcept{
+            ret.emplace_back(::neotest::execute_group(group_name));
+        }
+    );
+    return ret;
+}
+
+::std::string execute_case_to_json(
+    ::std::string_view case_name
+)noexcept{
+    return ::neotest::value_to_json(::neotest::execute_case(case_name));
+}
+
+::std::string execute_case_to_json(
+    ::std::regex const& case_name_regex
+)noexcept{
+    return ::neotest::value_to_json(::neotest::execute_case(case_name_regex));
+}
+
+::std::string execute_case_to_json(
+    ::std::vector<std::variant<std::string_view,::std::regex>> const&
+        case_name_list
+)noexcept{
+    return ::neotest::value_to_json(::neotest::execute_case(case_name_list));
+}
+
+::std::string execute_case_all_to_json(void)noexcept{
+    return ::neotest::value_to_json(::neotest::execute_case_all());
+}
+
+::std::string execute_group_to_json(
+    ::std::string_view group_name
+)noexcept{
+    return ::neotest::value_to_json(::neotest::execute_group(group_name));
+}
+
+::std::string execute_group_to_json(
+    ::std::regex const& group_name_regex
+)noexcept{
+    return
+        ::neotest::value_to_json(::neotest::execute_group(group_name_regex));
+}
+
+::std::string execute_group_to_json(
+    ::std::vector<std::variant<std::string_view,::std::regex>> const&
+        group_name_list
+)noexcept{
+    return
+        ::neotest::value_to_json(::neotest::execute_group(group_name_list));
+}
+
+::std::string execute_group_all_to_json(void)noexcept{
+    return ::neotest::value_to_json(::neotest::execute_group_all());
 }
 
 }//namespace neotest

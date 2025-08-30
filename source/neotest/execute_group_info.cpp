@@ -98,12 +98,12 @@ bool ExecuteGroupInfo::is_passed(void)const noexcept{
 bool ExecuteGroupInfo::is_failed(void)const noexcept{
     return (!this->is_undefined())
         &&(this->case_total_!=0)
-        &&(this->case_total_==this->case_failed_);
+        &&(this->case_failed_>0);
 }
 bool ExecuteGroupInfo::is_skipped(void)const noexcept{
     return (!this->is_undefined())
         &&(this->case_total_!=0)
-        &&(this->case_total_==this->case_skipped_);
+        &&(this->case_skipped_>0);
 }
 bool ExecuteGroupInfo::is_undefined(void)const noexcept{
     return !(::neotest::GroupDict::get().contains(this->name_));

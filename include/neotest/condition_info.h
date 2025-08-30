@@ -21,7 +21,7 @@ struct ConditionInfo{
     ::neotest::ConditionInfo{ \
         __FILE__ \
         ,NEOTEST_TO_STRING(__LINE__) \
-        ,(::std::ostringstream{}<<__VA_ARGS__).str() \
+        ,NEOTEST_TO_STRING(__VA_ARGS__) \
         ,static_cast<bool>(__VA_ARGS__) \
     } \
 //
@@ -32,9 +32,9 @@ struct ConditionInfo{
         ,( \
             ::std::ostringstream{} \
                 <<NEOTEST_TO_STRING(operator__) " " \
-                <<__VA_ARGS__ \
+                <<(__VA_ARGS__) \
         ).str() \
-        ,static_cast<bool>(operator__ __VA_ARGS__) \
+        ,static_cast<bool>(operator__ (__VA_ARGS__)) \
     } \
 //
 #define NEOTEST_MAKE_CONDITION_INFO_BY_BINARY_OPERATOR( \
@@ -49,7 +49,7 @@ struct ConditionInfo{
                 <<" " NEOTEST_TO_STRING(operator__) " " \
                 <<(__VA_ARGS__) \
         ).str() \
-        ,static_cast<bool>(lhs__ operator__ __VA_ARGS__) \
+        ,static_cast<bool>((lhs__) operator__ (__VA_ARGS__)) \
     } \
 //
 
