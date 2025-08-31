@@ -11,18 +11,19 @@
 #include"regex.h"
 #include"group_dict.h"
 
-namespace neotest{
+namespace neotest::detail{
 
 template<typename StaticString__>
 struct Group;
 
-}//namespace neotest
+}//namespace neotest::detail
 
 #define NEOTEST_GROUP(...) \
     template<> \
-    struct neotest::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>{ \
-        using self_type= \
-            ::neotest::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>; \
+    struct neotest::detail::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>{ \
+        using self_type=::neotest::detail::Group< \
+            NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__) \
+        >; \
         using body_type=::std::vector< \
             ::std::variant<::std::string_view,::neotest::RegEx> \
         >; \
@@ -30,15 +31,18 @@ struct Group;
         static void init(body_type& body); \
         inline static bool regist_flag=[](void){ \
             self_type::init(self_type::body_); \
-            return ::neotest::GroupDict::regist( \
+            return ::neotest::detail::GroupDict::regist( \
                 ::std::string_view{__VA_ARGS__} \
                 ,&self_type::body_ \
             ); \
         }(); \
     }; \
-    void ::neotest::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)>::init( \
-        typename ::neotest::Group<NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__)> \
-            ::body_type& body \
+    void ::neotest::detail::Group< \
+        NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__) \
+    >::init( \
+        typename ::neotest::detail::Group< \
+            NEOTEST_MAKE_STATIC_STRING(__VA_ARGS__) \
+        >::body_type& body \
     ) \
 //
 

@@ -9,5 +9,7 @@
 #include"group.hpp"
 #include"execute.h"
 #include"to_json.h"
+#include"type_name_of.hpp"
+#include"static_check.hpp"
 
 #endif//NEOTEST_H

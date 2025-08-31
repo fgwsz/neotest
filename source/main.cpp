@@ -2,9 +2,9 @@
 
 #include"neotest/neotest.h"
 
-#include"sample4.h"
+#define TEST_SAMPLE_5
+#include"sample5.h"
 
 int main(int argc,char* argv[]){
-    ::test_sample_4();
     return 0;
 }
