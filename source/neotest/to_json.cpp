@@ -10,18 +10,18 @@ namespace detail{
 
 ::std::string string_to_json_value(::std::string_view input)noexcept{
     ::std::ostringstream oss;
-    oss<<"\"";//开始双引号
+    oss<<"\"";
     for(char ch:input){
         switch(ch){
-            case '\"':{ oss<<R"(\")"; break; }//双引号
-            case '\\':{ oss<<R"(\\)"; break; }//反斜杠
-            case '\n':{ oss<<R"(\n)"; break; }//换行
-            case '\r':{ oss<<R"(\r)"; break; }//回车
-            case '\t':{ oss<<R"(\t)"; break; }//制表符
-            case '\b':{ oss<<R"(\b)"; break; }//退格
-            case '\f':{ oss<<R"(\f)"; break; }//换页
+            case '\"':{ oss<<R"(\")"; break; }
+            case '\\':{ oss<<R"(\\)"; break; }
+            case '\n':{ oss<<R"(\n)"; break; }
+            case '\r':{ oss<<R"(\r)"; break; }
+            case '\t':{ oss<<R"(\t)"; break; }
+            case '\b':{ oss<<R"(\b)"; break; }
+            case '\f':{ oss<<R"(\f)"; break; }
             default  :{
-                //处理其他控制字符(ASCII 0-31)
+                //ASCII 0-31
                 if(static_cast<unsigned char>(ch)<=0x1F){
                     oss<<"\\u00"<<std::hex<<std::uppercase
                         <<std::setw(2)<<std::setfill('0')
@@ -29,13 +29,13 @@ namespace detail{
                             static_cast<unsigned char>(ch)
                         );
                 }else{
-                    oss<<ch;//普通字符
+                    oss<<ch;
                 }
                 break;
             }
         }
     }
-    oss<<"\"";//结束双引号
+    oss<<"\"";
     return oss.str();
 }
 

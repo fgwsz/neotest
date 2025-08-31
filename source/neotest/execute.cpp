@@ -60,7 +60,11 @@ namespace neotest{
 )noexcept{
     ::std::vector<::neotest::ExecuteCaseInfo> ret={};
     ::neotest::CaseDict::get().foreach(
-        [&](::std::string_view case_name,auto const& case_body)noexcept{
+        [&](::std::string_view case_name,auto const& case_body)
+        #ifndef _MSC_VER
+            noexcept
+        #endif
+        {
             static ::std::string name={};
             name=case_name;//::std::string_view to ::std::string
             if(::std::regex_match(name,case_name_regex)){
@@ -94,7 +98,11 @@ namespace neotest{
 ::std::vector<::neotest::ExecuteCaseInfo> execute_case_all(void)noexcept{
     ::std::vector<::neotest::ExecuteCaseInfo> ret={};
     ::neotest::CaseDict::get().foreach(
-        [&](::std::string_view case_name,auto const& case_body)noexcept{
+        [&](::std::string_view case_name,auto const& case_body)
+        #ifndef _MSC_VER
+            noexcept
+        #endif
+        {
             ret.emplace_back(::neotest::execute_case(case_name));
         }
     );
@@ -152,7 +160,11 @@ namespace neotest{
 )noexcept{
     ::std::vector<::neotest::ExecuteGroupInfo> ret={};
     ::neotest::GroupDict::get().foreach(
-        [&](::std::string_view group_name,auto const& group_body)noexcept{
+        [&](::std::string_view group_name,auto const& group_body)
+        #ifndef _MSC_VER
+            noexcept
+        #endif
+        {
             static ::std::string name={};
             name=group_name;//::std::string_view to ::std::string
             if(::std::regex_match(name,group_name_regex)){
@@ -186,7 +198,11 @@ namespace neotest{
 ::std::vector<::neotest::ExecuteGroupInfo> execute_group_all(void)noexcept{
     ::std::vector<::neotest::ExecuteGroupInfo> ret={};
     ::neotest::GroupDict::get().foreach(
-        [&](::std::string_view group_name,auto const& group_body)noexcept{
+        [&](::std::string_view group_name,auto const& group_body)
+        #ifndef _MSC_VER
+            noexcept
+        #endif
+        {
             ret.emplace_back(::neotest::execute_group(group_name));
         }
     );

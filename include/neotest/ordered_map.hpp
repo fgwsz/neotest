@@ -153,6 +153,7 @@ public:
         }
         return *this;
     }
+#ifndef _MSC_VER
     constexpr OrderedMap& foreach(
         ::std::function<void(KeyType__ const&,ValueType__&)noexcept>const&
             func
@@ -171,6 +172,7 @@ public:
         }
         return *this;
     }
+#endif
 };
 
 }//namespace neotest

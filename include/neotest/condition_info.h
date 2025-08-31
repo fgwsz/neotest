@@ -23,7 +23,7 @@ struct ConditionInfo{
         __FILE__ \
         ,NEOTEST_TO_STRING(__LINE__) \
         ,NEOTEST_TO_STRING(__VA_ARGS__) \
-        ,static_cast<bool>(__VA_ARGS__) /*求值*/ \
+        ,static_cast<bool>(__VA_ARGS__) \
     } \
 //
 #define NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR(operator__,...) \
