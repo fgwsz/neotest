@@ -1,0 +1,20 @@
+#ifndef SAMPLE_?_H
+#define SAMPLE_?_H
+
+#include<iostream>//::std::cout
+
+#include"neotest/neotest.h"
+
+#ifdef TEST_SAMPLE_?
+
+
+
+#endif//TEST_SAMPLE_?
+
+void test_sample_?(void)noexcept{
+    ::std::cout
+        <<""
+        <<'\n';
+}
+
+#endif//SAMPLE_?_H
