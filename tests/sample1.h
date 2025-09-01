@@ -1,10 +1,12 @@
 #ifndef SAMPLE_1_H
 #define SAMPLE_1_H
 
-#include<stdexcept>//std::runtime_error
-#include<ios>//std::ios
-#include<iostream>//std::cout
-#include<fstream>//std::ofstream
+#include<string_view>//::std::string_view
+#include<string>//::std::string
+#include<stdexcept>//::std::runtime_error
+#include<ios>//::std::ios
+#include<iostream>//::std::cout
+#include<fstream>//::std::ofstream
 
 #include"neotest/neotest.h"
 
@@ -13,8 +15,11 @@
 NEOTEST_CASE("c_str_exception"){
     throw "c_str exception";
 }
+NEOTEST_CASE("string_view_exception"){
+    throw ::std::string_view{"string view exception"};
+}
 NEOTEST_CASE("string_exception"){
-    throw "string exception";
+    throw ::std::string{"string exception"};
 }
 NEOTEST_CASE("std_exception"){
     throw std::runtime_error{"std::exception"};
@@ -25,6 +30,9 @@ NEOTEST_CASE("unknown_exception"){
 }
 NEOTEST_CASE("empty_c_str_exception"){
     throw "";
+}
+NEOTEST_CASE("empty_string_view_exception"){
+    throw std::string_view{""};
 }
 NEOTEST_CASE("empty_string_exception"){
     throw std::string{""};
@@ -238,6 +246,9 @@ void test_file_output(void)noexcept{
     }else{
         std::cout<<"Unable to open file for writing."<<'\n';
     }
+}
+void test_sample_1(void)noexcept{
+    ::test_file_output();
 }
 
 #endif//SAMPLE_1_H

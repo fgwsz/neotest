@@ -1,10 +1,8 @@
 #include"main.h"
 
-#include"neotest/neotest.h"
-
-#define TEST_SAMPLE_6
-#include"sample6.h"
+#include"test_sample.h"
 
 int main(int argc,char* argv[]){
+    ::test_sample();
     return 0;
 }

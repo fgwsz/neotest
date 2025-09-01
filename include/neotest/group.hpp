@@ -31,7 +31,7 @@ struct Group;
         static void init(body_type& body); \
         inline static bool regist_flag=[](void){ \
             self_type::init(self_type::body_); \
-            return ::neotest::detail::GroupDict::regist( \
+            return ::neotest::GroupDict::regist( \
                 ::std::string_view{__VA_ARGS__} \
                 ,&self_type::body_ \
             ); \
