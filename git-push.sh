@@ -13,6 +13,7 @@ if [ "$commit_info" != "q" ]; then
     git add ./.gitignore
     git add ./*.ps1
     git add ./*.sh
+    git add ./*.cmake
     git commit -m "$commit_info"
     git push
 fi

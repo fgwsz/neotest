@@ -1,5 +1,3 @@
-#include"main.h"
-
 #include"test_sample.h"
 
 int main(int argc,char* argv[]){
