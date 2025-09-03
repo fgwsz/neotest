@@ -3,10 +3,10 @@
 
 #include<optional>//::std::optional
 #include<string>//::std::string
-#include<sstream>//::std::ostringstream
 #include<utility>//::std::forward
 
 #include"condition_info.h"
+#include"ostring_stream.hpp"
 
 namespace neotest{
 
@@ -15,7 +15,7 @@ public:
     template<typename Type__>
     RuntimeAssertStream& operator<<(Type__&& arg)noexcept{
         ::std::string str=
-            (::std::ostringstream{}<<::std::forward<Type__>(arg)).str();
+            (::neotest::OStringStream{}<<::std::forward<Type__>(arg)).str();
         if(this->message_.has_value()){
             this->message_.value()+=str;
         }else{

@@ -4,9 +4,9 @@
 #include<string_view>//::std::string_view
 #include<string>//::std::string
 #include<ios>//std::boolalpha
-#include<sstream>//::std::ostringstream
 
 #include"macro.h"
+#include"ostring_stream.hpp"
 
 namespace neotest{
 
@@ -33,7 +33,7 @@ struct ConditionInfo{
             __FILE__ \
             ,NEOTEST_TO_STRING(__LINE__) \
             ,( \
-                ::std::ostringstream{} \
+                ::neotest::OStringStream{} \
                     <<::std::boolalpha \
                     <<NEOTEST_TO_STRING(operator__) " " \
                     <<"("<<rhs_ref<<")" \
@@ -52,7 +52,7 @@ struct ConditionInfo{
             __FILE__ \
             ,NEOTEST_TO_STRING(__LINE__) \
             ,( \
-                ::std::ostringstream{} \
+                ::neotest::OStringStream{} \
                     <<::std::boolalpha \
                     <<"("<<lhs_ref<<")" \
                     <<" " NEOTEST_TO_STRING(operator__) " " \

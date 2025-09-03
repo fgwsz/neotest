@@ -13,14 +13,14 @@ include_directories(include)
 include_directories(include/${PROJECT_NAME})
 
 # 设置源文件
-file(GLOB NEOTEST_SOURCES "source/${PROJECT_NAME}/*.cpp")
+file(GLOB LIB_SOURCES "source/${PROJECT_NAME}/*.cpp")
 
 # 创建静态库
-add_library(${PROJECT_NAME}_static STATIC ${NEOTEST_SOURCES})
+add_library(${PROJECT_NAME}_static STATIC ${LIB_SOURCES})
 set_target_properties(${PROJECT_NAME}_static PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
 
 # 创建共享库
-add_library(${PROJECT_NAME}_shared SHARED ${NEOTEST_SOURCES})
+add_library(${PROJECT_NAME}_shared SHARED ${LIB_SOURCES})
 set_target_properties(${PROJECT_NAME}_shared PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
 
 # 设置安装路径
