@@ -25,6 +25,7 @@ fi
 cd "$build_path" || exit 1
 cmake "$root_path"
 make
+make package
 
 # 返回原始目录并恢复 CMakeLists.txt
 cd "$root_path" || exit 1
