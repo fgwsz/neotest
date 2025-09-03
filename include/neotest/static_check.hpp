@@ -20,7 +20,7 @@ template<typename File__,typename Line__,typename Info__>
 struct StaticCheck{
     constexpr StaticCheck(void)noexcept{}
     constexpr StaticCheck(StaticCheck const&)noexcept{}
-    [[deprecated("")]]
+    [[deprecated("::neotest::static_check(false)")]]
     constexpr bool operator()(::neotest::detail::Bool<false>)const noexcept{
         return false;
     }
@@ -55,6 +55,12 @@ struct LessThan{};
 
 template<auto lhs__,auto rhs__>
 struct LessEqual{};
+
+template<bool lhs__,bool rhs__>
+struct And{};
+
+template<bool lhs__,bool rhs__>
+struct Or{};
 
 template<typename LHS__,typename RHS__>
 struct Same{};
@@ -212,6 +218,46 @@ struct Same{};
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) <= (rhs) \
+        )> result={}; \
+        return \
+            static_check(result) \
+        ; \
+    }() \
+//
+
+#define NEOTEST_STATIC_CHECK_VALUE_AND(lhs__,...) \
+    static constexpr bool NEOTEST_UNIQUE_VAR_NAME( \
+        neotest_static_check_expr_ \
+    )=[](void)noexcept->bool{ \
+        constexpr bool lhs=static_cast<bool>(lhs__); \
+        constexpr bool rhs=static_cast<bool>(__VA_ARGS__); \
+        constexpr ::neotest::detail::StaticCheck< \
+            ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
+            ,::neotest::detail::Line<__LINE__> \
+            ,::neotest::detail::And<lhs,rhs> \
+        > static_check={}; \
+        constexpr ::neotest::detail::Bool<static_cast<bool>( \
+            (lhs) && (rhs) \
+        )> result={}; \
+        return \
+            static_check(result) \
+        ; \
+    }() \
+//
+
+#define NEOTEST_STATIC_CHECK_VALUE_OR(lhs__,...) \
+    static constexpr bool NEOTEST_UNIQUE_VAR_NAME( \
+        neotest_static_check_expr_ \
+    )=[](void)noexcept->bool{ \
+        constexpr bool lhs=static_cast<bool>(lhs__); \
+        constexpr bool rhs=static_cast<bool>(__VA_ARGS__); \
+        constexpr ::neotest::detail::StaticCheck< \
+            ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
+            ,::neotest::detail::Line<__LINE__> \
+            ,::neotest::detail::Or<lhs,rhs> \
+        > static_check={}; \
+        constexpr ::neotest::detail::Bool<static_cast<bool>( \
+            (lhs) || (rhs) \
         )> result={}; \
         return \
             static_check(result) \
