@@ -136,7 +136,6 @@ namespace neotest{
     for(auto const& element:group_data){
         if(std::holds_alternative<::std::string_view>(element)){
             auto const& case_name=::std::get<::std::string_view>(element);
-            //
             auto ci=::neotest::execute_case(case_name);
             ci.set_group_name(ei.get_name());
             ei_case_increment(ci);

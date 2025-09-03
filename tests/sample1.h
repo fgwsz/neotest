@@ -205,29 +205,7 @@ NEOTEST_GROUP("failed_group"){
     NEOTEST_GROUP_ELEMENT_CASE("empty_string_exception");
     NEOTEST_GROUP_ELEMENT_CASE("empty_std_exception");
     NEOTEST_GROUP_ELEMENT_CASE("check_failed");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_1");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_2");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_3");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_4");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_5");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_6");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_7");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_8");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_9");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_10");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_11");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_12");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_13");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_14");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_15");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_16");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_17");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_18");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_19");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_20");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_21");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_22");
-    NEOTEST_GROUP_ELEMENT_CASE("assert_failed_23");
+    NEOTEST_GROUP_ELEMENT_CASE_REGEX(R"(^assert_failed_.*)");
     NEOTEST_GROUP_ELEMENT_CASE("undefined");
 }
 
