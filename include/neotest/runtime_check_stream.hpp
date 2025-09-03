@@ -14,8 +14,8 @@ class RuntimeCheckStream final{
 public:
     template<typename Type__>
     RuntimeCheckStream& operator<<(Type__&& arg)noexcept{
-        ::std::string str=
-            (::neotest::OStringStream{}<<::std::forward<Type__>(arg)).str();
+        ::neotest::OStringStream oss={};
+        ::std::string str=(oss<<::std::forward<Type__>(arg)).str();
         if(this->message_.has_value()){
             this->message_.value()+=str;
         }else{

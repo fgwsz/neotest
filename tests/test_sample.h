@@ -23,6 +23,9 @@
 #define TEST_SAMPLE_6
 #include "sample6.h"
 
+#define TEST_SAMPLE_7
+#include "sample7.h"
+
 void test_sample(void)noexcept{
     static auto const line=::std::string(40,'=');
     auto execute_sample=[&](auto const& info,auto const& func){
@@ -34,6 +37,7 @@ void test_sample(void)noexcept{
     execute_sample("Sample 2",::test_sample_2);
     execute_sample("Sample 3",::test_sample_3);
     execute_sample("Sample 4",::test_sample_4);
+    execute_sample("Sample 7",::test_sample_7);
 }
 
 #endif//TEST_SAMPLE_H

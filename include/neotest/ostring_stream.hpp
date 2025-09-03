@@ -8,24 +8,28 @@
 
 namespace neotest{
 
-struct OStringStream{
+class OStringStream{
+public:
     OStringStream(void)noexcept
-        :oss_({}){
-        this->oss_<<::std::boolalpha;
+        :data_({}){
+        this->data_<<::std::boolalpha;
     }
     OStringStream& operator=(OStringStream const&)noexcept=default;
     OStringStream& operator=(OStringStream &&)noexcept=default;
     ~OStringStream(void)noexcept=default;
 
-    template<typename Type__>
+    template<typename Type__>requires requires{
+        ::std::ostringstream{}<<Type__{};
+    }
     OStringStream& operator<<(Type__&& arg)noexcept{
-        this->oss_<<::std::forward<Type__>(arg);
+        this->data_<<::std::forward<Type__>(arg);
         return *this;
     }
     ::std::string str(void)const noexcept{
-        return this->oss_.str();
+        return this->data_.str();
     }
-    ::std::ostringstream oss_;
+private:
+    ::std::ostringstream data_;
 };
 
 }//namespace neotest

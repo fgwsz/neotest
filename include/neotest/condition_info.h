@@ -29,12 +29,12 @@ struct ConditionInfo{
 #define NEOTEST_MAKE_CONDITION_INFO_BY_UNARY_OPERATOR(operator__,...) \
     [&](void)->::neotest::ConditionInfo{ \
         auto const& rhs_ref=(__VA_ARGS__); \
+        ::neotest::OStringStream oss={}; \
         return ::neotest::ConditionInfo{ \
             __FILE__ \
             ,NEOTEST_TO_STRING(__LINE__) \
             ,( \
-                ::neotest::OStringStream{} \
-                    <<::std::boolalpha \
+                oss \
                     <<NEOTEST_TO_STRING(operator__) " " \
                     <<"("<<rhs_ref<<")" \
             ).str() \
@@ -48,12 +48,12 @@ struct ConditionInfo{
     [&](void)->::neotest::ConditionInfo{ \
         auto const& lhs_ref=(lhs__); \
         auto const& rhs_ref=(__VA_ARGS__); \
+        ::neotest::OStringStream oss={}; \
         return ::neotest::ConditionInfo{ \
             __FILE__ \
             ,NEOTEST_TO_STRING(__LINE__) \
             ,( \
-                ::neotest::OStringStream{} \
-                    <<::std::boolalpha \
+                oss \
                     <<"("<<lhs_ref<<")" \
                     <<" " NEOTEST_TO_STRING(operator__) " " \
                     <<"("<<rhs_ref<<")" \
