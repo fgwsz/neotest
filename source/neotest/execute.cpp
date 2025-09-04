@@ -29,27 +29,41 @@ namespace neotest{
         ::neotest::RuntimeAssertFailedException const&
         runtime_assert_failed_exception
     ){
+        ci.execute_stop();
         ci.set_runtime_assert_failed_exception(
             runtime_assert_failed_exception
         );
+        return ci;
     }catch(::neotest::SkipException const& skip_exception){
+        ci.execute_stop();
         ci.set_skip(skip_exception);
+        return ci;
     }catch(::std::exception const& std_exception){
+        ci.execute_stop();
         ci.set_runtime_exception(
             ::std::format("::std::exception{{{}}}",std_exception.what())
         );
+        return ci;
     }catch(char const* c_str){
+        ci.execute_stop();
         ci.set_runtime_exception(::std::format("char const*{{{}}}",c_str));
+        return ci;
     }catch(::std::string_view std_sv){
+        ci.execute_stop();
         ci.set_runtime_exception(
             ::std::format("::std::string_view{{{}}}",std_sv)
         );
+        return ci;
     }catch(::std::string const& std_str){
+        ci.execute_stop();
         ci.set_runtime_exception(
             ::std::format("::std::string{{{}}}",std_str)
         );
+        return ci;
     }catch(...){
+        ci.execute_stop();
         ci.set_runtime_exception("Unknown{...}");
+        return ci;
     }
     ci.execute_stop();
     return ci;
