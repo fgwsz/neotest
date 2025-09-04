@@ -5,7 +5,7 @@
 #include<string>//::std::string
 #include<format>//std::format
 
-#define TEST_SAMPLE_8
+//#define TEST_SAMPLE_8
 
 #ifndef TEST_SAMPLE_8
 #   define TEST_SAMPLE_1

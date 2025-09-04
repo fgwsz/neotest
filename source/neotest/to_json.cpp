@@ -1,5 +1,10 @@
 #include"to_json.h"
 
+#include<cmath>//::std::isnan ::std::isinf ::std::isnormal
+
+#include<limits>//::std::numeric_limits
+#include<array>//::std::array
+#include<charconv>//::std::to_chars
 #include<format>//::std::format
 #include<string>//::std::to_string
 #include<sstream>//::std::ostringstream
@@ -55,11 +60,7 @@ namespace detail{
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
-    if(condition){
-        return "true";
-    }else{
-        return "false";
-    }
+    return condition?"true":"false";
 }
 
 ::std::string value_to_json(
@@ -91,7 +92,27 @@ namespace detail{
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
-    return ::std::to_string(number);
+    if(::std::isnan(number)){
+        return "null";
+    }
+    if(::std::isinf(number)){
+        return (number>0)?"1e999":"-1e999";
+    }
+    constexpr double u64_max=
+        static_cast<double>(::std::numeric_limits<unsigned long long>::max());
+    constexpr double i64_min=
+        static_cast<double>(::std::numeric_limits<long long>::min());
+    if(number>=i64_min&&number<=u64_max){
+        if(number>=0){
+            return ::std::to_string(static_cast<unsigned long long>(number));
+        }else{
+            return ::std::to_string(static_cast<long long>(number));
+        }
+    }
+    ::std::array<char,32> buffer;
+    auto[ptr,ec]=
+        ::std::to_chars(buffer.data(),buffer.data()+buffer.size(),number);
+    return(ec==::std::errc{})?::std::string(buffer.data(),ptr):"null";
 }
 
 ::std::string value_to_json(
