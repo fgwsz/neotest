@@ -209,7 +209,6 @@ NEOTEST_GROUP("failed_group"){
     NEOTEST_GROUP_ELEMENT_CASE("undefined");
 }
 
-
 #endif//TEST_SAMPLE_8
 
 void test_console_output(void)noexcept{
