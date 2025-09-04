@@ -49,7 +49,7 @@ public:
     bool is_failed(void)const noexcept;
     bool is_skipped(void)const noexcept;
     bool is_undefined(void)const noexcept;
-    //
+    //data
     using case_regex_info_type=::std::tuple<
         ::std::string_view
         ,::std::vector<::neotest::ExecuteCaseInfo>

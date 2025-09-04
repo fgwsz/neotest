@@ -109,6 +109,17 @@ namespace neotest{
     return ret;
 }
 
+::std::vector<::neotest::ExecuteCaseInfo> execute_case(
+    ::std::initializer_list<std::variant<std::string_view,::std::regex>>
+        case_name_list
+)noexcept{
+    return ::neotest::execute_case(
+        ::std::vector<std::variant<std::string_view,::std::regex>>{
+            case_name_list
+        }
+    );
+}
+
 ::neotest::ExecuteGroupInfo execute_group(
     ::std::string_view group_name
 )noexcept{
@@ -194,6 +205,17 @@ namespace neotest{
     return ret;
 }
 
+::std::vector<::neotest::ExecuteGroupInfo> execute_group(
+    ::std::initializer_list<std::variant<std::string_view,::std::regex>>
+        group_name_list
+)noexcept{
+    return ::neotest::execute_group(
+        ::std::vector<std::variant<std::string_view,::std::regex>>{
+            group_name_list
+        }
+    );
+}
+
 ::std::vector<::neotest::ExecuteGroupInfo> execute_group_all(void)noexcept{
     ::std::vector<::neotest::ExecuteGroupInfo> ret={};
     ::neotest::GroupDict::get().foreach(
@@ -227,6 +249,17 @@ namespace neotest{
     return ::neotest::value_to_json(::neotest::execute_case(case_name_list));
 }
 
+::std::string execute_case_to_json(
+    ::std::initializer_list<std::variant<std::string_view,::std::regex>>
+        case_name_list
+)noexcept{
+    return ::neotest::execute_case_to_json(
+        ::std::vector<std::variant<std::string_view,::std::regex>>{
+            case_name_list
+        }
+    );
+}
+
 ::std::string execute_case_all_to_json(void)noexcept{
     return ::neotest::value_to_json(::neotest::execute_case_all());
 }
@@ -250,6 +283,17 @@ namespace neotest{
 )noexcept{
     return
         ::neotest::value_to_json(::neotest::execute_group(group_name_list));
+}
+
+::std::string execute_group_to_json(
+    ::std::initializer_list<std::variant<std::string_view,::std::regex>>
+        group_name_list
+)noexcept{
+    return ::neotest::execute_group_to_json(
+        ::std::vector<std::variant<std::string_view,::std::regex>>{
+            group_name_list
+        }
+    );
 }
 
 ::std::string execute_group_all_to_json(void)noexcept{
