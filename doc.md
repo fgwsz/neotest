@@ -145,8 +145,8 @@ NEOTEST_RUNTIME_ASSERT_LE(value_1,value_2);
 ```cpp
 if(!ofs.is_open()){
     ::std::string reason={"文件打开失败"};
-    NEOTEST_SKIP(reason);
     ofs.close();
+    NEOTEST_SKIP(reason);
 }
 ```
 ### 自定义消息
@@ -180,3 +180,36 @@ NEOTEST_SKIP("this is reason")
 `::neotest::type_name_of`
 ## 编译期检查
 `NEOTEST_STATIC_CHECK*`
+### 编译期值逻辑表达式
+```cpp
+// check(condition)
+NEOTEST_STATIC_CHECK(condition);
+// check(!condition)
+NEOTEST_STATIC_CHECK_NOT(condition);
+// check(condition_1 && condition_2)
+NEOTEST_STATIC_CHECK_VALUE_AND(condition_1,condition_2);
+// check(condition_1 || condition_2)
+NEOTEST_STATIC_CHECK_VALUE_OR(condition_1,condition_2);
+```
+### 编译期值比较表达式
+```cpp
+// check(value_1 == value_2)
+NEOTEST_STATIC_CHECK_VALUE_EQ(value_1,value_2);
+// check(value_1 != value_2)
+NEOTEST_STATIC_CHECK_VALUE_NE(value_1,value_2);
+// check(value_1 > value_2)
+NEOTEST_STATIC_CHECK_VALUE_GT(value_1,value_2);
+// check(value_1 >= value_2)
+NEOTEST_STATIC_CHECK_VALUE_GE(value_1,value_2);
+// check(value_1 < value_2)
+NEOTEST_STATIC_CHECK_VALUE_LT(value_1,value_2);
+// check(value_1 <= value_2)
+NEOTEST_STATIC_CHECK_VALUE_LE(value_1,value_2);
+```
+### 编译期类型比较表达式
+```cpp
+// check(true == ::std::is_same_v<value_1,value_2>)
+NEOTEST_STATIC_CHECK_TYPE_EQ(value_1,value_2);
+// check(false == ::std::is_same_v<value_1,value_2>)
+NEOTEST_STATIC_CHECK_TYPE_NE(value_1,value_2);
+```

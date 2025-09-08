@@ -39,31 +39,34 @@ template<typename File__>
 struct Info{};
 
 template<auto lhs__,auto rhs__>
-struct Equal{};
+struct ValueEqual{};
 
 template<auto lhs__,auto rhs__>
-struct NotEqual{};
+struct ValueNotEqual{};
 
 template<auto lhs__,auto rhs__>
-struct GreaterThan{};
+struct ValueGreaterThan{};
 
 template<auto lhs__,auto rhs__>
-struct GreaterEqual{};
+struct ValueGreaterEqual{};
 
 template<auto lhs__,auto rhs__>
-struct LessThan{};
+struct ValueLessThan{};
 
 template<auto lhs__,auto rhs__>
-struct LessEqual{};
+struct ValueLessEqual{};
 
 template<bool lhs__,bool rhs__>
-struct And{};
+struct ValueAnd{};
 
 template<bool lhs__,bool rhs__>
-struct Or{};
+struct ValueOr{};
 
 template<typename LHS__,typename RHS__>
-struct Same{};
+struct TypeEqual{};
+
+template<typename LHS__,typename RHS__>
+struct TypeNotEqual{};
 
 }//namespace neotest::detail
 
@@ -114,7 +117,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::Equal<lhs,rhs> \
+            ,::neotest::detail::ValueEqual<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) == (rhs) \
@@ -134,7 +137,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::NotEqual<lhs,rhs> \
+            ,::neotest::detail::ValueNotEqual<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) != (rhs) \
@@ -154,7 +157,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::GreaterThan<lhs,rhs> \
+            ,::neotest::detail::ValueGreaterThan<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) > (rhs) \
@@ -174,7 +177,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::GreaterEqual<lhs,rhs> \
+            ,::neotest::detail::ValueGreaterEqual<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) >= (rhs) \
@@ -194,7 +197,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::LessThan<lhs,rhs> \
+            ,::neotest::detail::ValueLessThan<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) < (rhs) \
@@ -214,7 +217,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::LessEqual<lhs,rhs> \
+            ,::neotest::detail::ValueLessEqual<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) <= (rhs) \
@@ -234,7 +237,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::And<lhs,rhs> \
+            ,::neotest::detail::ValueAnd<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) && (rhs) \
@@ -254,7 +257,7 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::Or<lhs,rhs> \
+            ,::neotest::detail::ValueOr<lhs,rhs> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             (lhs) || (rhs) \
@@ -265,7 +268,7 @@ struct Same{};
     }() \
 //
 
-#define NEOTEST_STATIC_CHECK_TYPE_SAME(lhs__,...) \
+#define NEOTEST_STATIC_CHECK_TYPE_EQ(lhs__,...) \
     static constexpr bool NEOTEST_UNIQUE_VAR_NAME( \
         neotest_static_check_expr_ \
     )=[](void)noexcept->bool{ \
@@ -274,10 +277,30 @@ struct Same{};
         constexpr ::neotest::detail::StaticCheck< \
             ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
             ,::neotest::detail::Line<__LINE__> \
-            ,::neotest::detail::Same<lhs_t,rhs_t> \
+            ,::neotest::detail::TypeEqual<lhs_t,rhs_t> \
         > static_check={}; \
         constexpr ::neotest::detail::Bool<static_cast<bool>( \
             ::std::is_same_v<lhs_t,rhs_t> \
+        )> result={}; \
+        return \
+            static_check(result) \
+        ; \
+    }() \
+//
+
+#define NEOTEST_STATIC_CHECK_TYPE_NE(lhs__,...) \
+    static constexpr bool NEOTEST_UNIQUE_VAR_NAME( \
+        neotest_static_check_expr_ \
+    )=[](void)noexcept->bool{ \
+        using lhs_t=lhs__; \
+        using rhs_t=__VA_ARGS__; \
+        constexpr ::neotest::detail::StaticCheck< \
+            ::neotest::detail::File<NEOTEST_MAKE_STATIC_STRING(__FILE__)> \
+            ,::neotest::detail::Line<__LINE__> \
+            ,::neotest::detail::TypeNotEqual<lhs_t,rhs_t> \
+        > static_check={}; \
+        constexpr ::neotest::detail::Bool<static_cast<bool>( \
+            !(::std::is_same_v<lhs_t,rhs_t>) \
         )> result={}; \
         return \
             static_check(result) \
