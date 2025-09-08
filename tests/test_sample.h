@@ -25,6 +25,7 @@
 #else
 #   include "sample8.h"
 #endif
+#include"sample9.h"
 
 
 void test_sample(void)noexcept{
@@ -43,6 +44,7 @@ void test_sample(void)noexcept{
 #else
     execute_sample("Sample 8",::test_sample_8);
 #endif
+    execute_sample("Sample 9",::test_sample_9);
 }
 
 #endif//TEST_SAMPLE_H
