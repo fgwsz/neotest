@@ -26,6 +26,7 @@
 #   include "sample8.h"
 #endif
 #include"sample9.h"
+#include"sample10.h"
 
 
 void test_sample(void)noexcept{
@@ -45,6 +46,7 @@ void test_sample(void)noexcept{
     execute_sample("Sample 8",::test_sample_8);
 #endif
     execute_sample("Sample 9",::test_sample_9);
+    execute_sample("Sample 10",::test_sample_10);
 }
 
 #endif//TEST_SAMPLE_H

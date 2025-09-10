@@ -19,12 +19,20 @@ RuntimeAssertStream::~RuntimeAssertStream(void)noexcept(false){
             ,this->info_.info
         );
     }
-    auto& current=::neotest::ExecuteCaseInfo::get_current();
-    current.runtime_assert_total_increment();
+    if(::neotest::ExecuteCaseInfo::has_current()){//in NEOTEST_CASE
+        ::neotest::ExecuteCaseInfo::get_current()
+            .runtime_assert_total_increment();
+    }
     if(!exception.has_value()){
-        current.runtime_assert_passed_increment();
+        if(::neotest::ExecuteCaseInfo::has_current()){//in NEOTEST_CASE
+            ::neotest::ExecuteCaseInfo::get_current()
+                .runtime_assert_passed_increment();
+        }
     }else{
-        current.runtime_assert_failed_increment();
+        if(::neotest::ExecuteCaseInfo::has_current()){//in NEOTEST_CASE
+            ::neotest::ExecuteCaseInfo::get_current()
+                .runtime_assert_failed_increment();
+        }
         if(this->message_.has_value()){
             exception.value().set_msg(this->message_.value());
         }
