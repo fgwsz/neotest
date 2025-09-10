@@ -255,20 +255,20 @@ namespace neotest{
 ::std::string execute_case_to_json(
     ::std::string_view case_name
 )noexcept{
-    return ::neotest::value_to_json(::neotest::execute_case(case_name));
+    return ::neotest::to_json(::neotest::execute_case(case_name));
 }
 
 ::std::string execute_case_to_json(
     ::std::regex const& case_name_regex
 )noexcept{
-    return ::neotest::value_to_json(::neotest::execute_case(case_name_regex));
+    return ::neotest::to_json(::neotest::execute_case(case_name_regex));
 }
 
 ::std::string execute_case_to_json(
     ::std::vector<std::variant<std::string_view,::std::regex>> const&
         case_name_list
 )noexcept{
-    return ::neotest::value_to_json(::neotest::execute_case(case_name_list));
+    return ::neotest::to_json(::neotest::execute_case(case_name_list));
 }
 
 ::std::string execute_case_to_json(
@@ -283,20 +283,20 @@ namespace neotest{
 }
 
 ::std::string execute_case_all_to_json(void)noexcept{
-    return ::neotest::value_to_json(::neotest::execute_case_all());
+    return ::neotest::to_json(::neotest::execute_case_all());
 }
 
 ::std::string execute_group_to_json(
     ::std::string_view group_name
 )noexcept{
-    return ::neotest::value_to_json(::neotest::execute_group(group_name));
+    return ::neotest::to_json(::neotest::execute_group(group_name));
 }
 
 ::std::string execute_group_to_json(
     ::std::regex const& group_name_regex
 )noexcept{
     return
-        ::neotest::value_to_json(::neotest::execute_group(group_name_regex));
+        ::neotest::to_json(::neotest::execute_group(group_name_regex));
 }
 
 ::std::string execute_group_to_json(
@@ -304,7 +304,7 @@ namespace neotest{
         group_name_list
 )noexcept{
     return
-        ::neotest::value_to_json(::neotest::execute_group(group_name_list));
+        ::neotest::to_json(::neotest::execute_group(group_name_list));
 }
 
 ::std::string execute_group_to_json(
@@ -319,7 +319,7 @@ namespace neotest{
 }
 
 ::std::string execute_group_all_to_json(void)noexcept{
-    return ::neotest::value_to_json(::neotest::execute_group_all());
+    return ::neotest::to_json(::neotest::execute_group_all());
 }
 
 }//namespace neotest

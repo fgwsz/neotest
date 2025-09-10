@@ -126,7 +126,7 @@ namespace neotest{
 
 `ExecuteGroupInfo`类提供了丰富的成员读取接口,用来自定义测试结果导出格式.
 
-当然`neotest`库也提供了默认的导出接口`::neotest::value_to_json()`,
+当然`neotest`库也提供了默认的导出接口`::neotest::to_json()`,
 可以用它来导出`ExecuteGroupInfo`和它的序列类型到`::std::string`类型的`JSON`.
 
 #### 方式二:执行测试并直接导出为`JSON`
@@ -178,7 +178,7 @@ NEOTEST_RUNTIME_CHECK_LE(value_1,value_2);
 `neotest`库提供了`execute_*`函数来进行`NEOTEST_CASE`/`NEOTEST_GROUP`的执行,
 并返回记录执行结果信息的`ExecuteCaseInfo`/`ExecuteGroupInfo`类对象.
 
-之后使用`::neotest::value_to_json()`将类对象转换成`::std::string`类型的`JSON`.
+之后使用`::neotest::to_json()`将类对象转换成`::std::string`类型的`JSON`.
 
 然后就可以配合`IO`流/文件流进行测试结果的终端打印/写入文件等操作.
 

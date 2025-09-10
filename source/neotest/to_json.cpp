@@ -13,7 +13,7 @@ namespace neotest{
 
 namespace detail{
 
-::std::string string_to_json_value(::std::string_view input)noexcept{
+::std::string string_to_json(::std::string_view input)noexcept{
     ::std::ostringstream oss;
     oss<<"\"";
     for(char ch:input){
@@ -46,16 +46,7 @@ namespace detail{
 
 }//namespace neotest::detail
 
-
-::std::string key_to_json(::std::string_view name)noexcept{
-    return ::std::format("{}:",::neotest::detail::string_to_json_value(name));
-}
-
-::std::string key_to_json(::std::string const& name)noexcept{
-    return ::std::format("{}:",::neotest::detail::string_to_json_value(name));
-}
-
-::std::string value_to_json(
+::std::string to_json(
     bool condition
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -63,23 +54,23 @@ namespace detail{
     return condition?"true":"false";
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::std::string_view sv
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
-    return ::neotest::detail::string_to_json_value(sv);
+    return ::neotest::detail::string_to_json(sv);
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::std::string const& str
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
 )noexcept{
-    return ::neotest::detail::string_to_json_value(str);
+    return ::neotest::detail::string_to_json(str);
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::std::size_t size
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -87,7 +78,7 @@ namespace detail{
     return ::std::to_string(size);
 }
 
-::std::string value_to_json(
+::std::string to_json(
     double number
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -115,7 +106,7 @@ namespace detail{
     return(ec==::std::errc{})?::std::string(buffer.data(),ptr):"null";
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::neotest::RuntimeAssertFailedException const& exception
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -126,10 +117,10 @@ namespace detail{
     ::std::size_t next_tab_number=current_tab_number+1;
     auto ret_append=[&](::std::string_view name,auto const& value)noexcept{
         ret+=::std::format(
-            "\n{}{}{},"
+            "\n{}{}:{},"
             ,::std::string(next_space_number,' ')
-            ,key_to_json(name)
-            ,value_to_json(value,tab_width,next_tab_number)
+            ,::neotest::to_json(name)
+            ,to_json(value,tab_width,next_tab_number)
         );
     };
     ret_append("file",exception.file());
@@ -143,7 +134,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::neotest::RuntimeCheckFailedError const& error
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -154,10 +145,10 @@ namespace detail{
     ::std::size_t next_tab_number=current_tab_number+1;
     auto ret_append=[&](::std::string_view name,auto const& value)noexcept{
         ret+=::std::format(
-            "\n{}{}{},"
+            "\n{}{}:{},"
             ,::std::string(next_space_number,' ')
-            ,key_to_json(name)
-            ,value_to_json(value,tab_width,next_tab_number)
+            ,::neotest::to_json(name)
+            ,to_json(value,tab_width,next_tab_number)
         );
     };
     ret_append("file",error.file);
@@ -171,7 +162,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::neotest::SkipException const& exception
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -182,10 +173,10 @@ namespace detail{
     ::std::size_t next_tab_number=current_tab_number+1;
     auto ret_append=[&](::std::string_view name,auto const& value)noexcept{
         ret+=::std::format(
-            "\n{}{}{},"
+            "\n{}{}:{},"
             ,::std::string(next_space_number,' ')
-            ,key_to_json(name)
-            ,value_to_json(value,tab_width,next_tab_number)
+            ,::neotest::to_json(name)
+            ,to_json(value,tab_width,next_tab_number)
         );
     };
     ret_append("file",exception.file());
@@ -199,7 +190,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::std::vector<::neotest::RuntimeCheckFailedError>const& errors
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -209,7 +200,7 @@ namespace detail{
         ret+=::std::format(
             "\n{}{},"
             ,::std::string(tab_width*(current_tab_number+1),' ')
-            ,value_to_json(element,tab_width,current_tab_number+1)
+            ,to_json(element,tab_width,current_tab_number+1)
         );
     }
     if(!errors.empty()){
@@ -222,7 +213,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::neotest::ExecuteCaseInfo const& ei
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -236,10 +227,10 @@ namespace detail{
     ::std::size_t next_tab_number=current_tab_number+1;
     auto ret_append=[&](::std::string_view name,auto const& value)noexcept{
         ret+=::std::format(
-            "\n{}{}{},"
+            "\n{}{}:{},"
             ,::std::string(next_space_number,' ')
-            ,key_to_json(name)
-            ,value_to_json(value,tab_width,next_tab_number)
+            ,::neotest::to_json(name)
+            ,to_json(value,tab_width,next_tab_number)
         );
     };
     //name
@@ -300,7 +291,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::std::vector<::neotest::ExecuteCaseInfo> const& ei_vec
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -310,7 +301,7 @@ namespace detail{
         ret+=::std::format(
             "\n{}{},"
             ,::std::string(tab_width*(current_tab_number+1),' ')
-            ,value_to_json(ei,tab_width,current_tab_number+1)
+            ,to_json(ei,tab_width,current_tab_number+1)
         );
     }
     if(!ei_vec.empty()){
@@ -323,7 +314,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::neotest::ExecuteGroupInfo const& ei
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -337,10 +328,10 @@ namespace detail{
     ::std::size_t next_tab_number=current_tab_number+1;
     auto ret_append=[&](::std::string_view name,auto const& value)noexcept{
         ret+=::std::format(
-            "\n{}{}{},"
+            "\n{}{}:{},"
             ,::std::string(next_space_number,' ')
-            ,key_to_json(name)
-            ,value_to_json(value,tab_width,next_tab_number)
+            ,::neotest::to_json(name)
+            ,to_json(value,tab_width,next_tab_number)
         );
     };
     //name
@@ -364,28 +355,28 @@ namespace detail{
     ret_append("is undefined",ei.is_undefined());
     //data
     ret+=std::format(
-        "\n{}{}{{"
+        "\n{}{}:{{"
         ,::std::string(next_space_number,' ')
-        ,key_to_json(std::string_view{"data"})
+        ,::neotest::to_json(std::string_view{"data"})
     );
     for(auto const& info:ei.get_data()){
         if(::std::holds_alternative<::neotest::ExecuteCaseInfo>(info)){
             auto const& ci=::std::get<::neotest::ExecuteCaseInfo>(info);
             ret+=::std::format(
-                "\n{}{}{},"
+                "\n{}{}:{},"
                 ,::std::string(tab_width*(current_tab_number+2),' ')
-                ,key_to_json(ci.get_case_name())
-                ,value_to_json(ci,tab_width,current_tab_number+2)
+                ,::neotest::to_json(ci.get_case_name())
+                ,to_json(ci,tab_width,current_tab_number+2)
             );
         }else{
             auto const& ri=::std::get<
                 typename ::neotest::ExecuteGroupInfo::case_regex_info_type
             >(info);
             ret+=::std::format(
-                "\n{}{}{},"
+                "\n{}{}:{},"
                 ,::std::string(tab_width*(current_tab_number+2),' ')
-                ,key_to_json(::std::get<0>(ri))
-                ,value_to_json(
+                ,::neotest::to_json(::std::get<0>(ri))
+                ,to_json(
                     ::std::get<1>(ri),tab_width,current_tab_number+2
                 )
             );
@@ -403,7 +394,7 @@ namespace detail{
     return ret;
 }
 
-::std::string value_to_json(
+::std::string to_json(
     ::std::vector<::neotest::ExecuteGroupInfo> const& ei_vec
     ,::std::size_t tab_width
     ,::std::size_t current_tab_number
@@ -413,7 +404,7 @@ namespace detail{
         ret+=::std::format(
             "\n{}{},"
             ,::std::string(tab_width*(current_tab_number+1),' ')
-            ,value_to_json(ei,tab_width,current_tab_number+1)
+            ,to_json(ei,tab_width,current_tab_number+1)
         );
     }
     if(!ei_vec.empty()){

@@ -41,7 +41,7 @@ RuntimeCheckStream::~RuntimeCheckStream(void)noexcept{
                 .runtime_check_failed_errors_push_back(error.value());
         }else{//in other function
             ::std::cerr
-                <<::neotest::value_to_json(error.value())
+                <<::neotest::to_json(error.value())
                 <<::std::endl;
         }
     }
