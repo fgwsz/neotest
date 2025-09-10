@@ -33,39 +33,47 @@ namespace neotest{
         ci.set_runtime_assert_failed_exception(
             runtime_assert_failed_exception
         );
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }catch(::neotest::SkipException const& skip_exception){
         ci.execute_stop();
         ci.set_skip(skip_exception);
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }catch(::std::exception const& std_exception){
         ci.execute_stop();
         ci.set_runtime_exception(
             ::std::format("::std::exception{{{}}}",std_exception.what())
         );
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }catch(char const* c_str){
         ci.execute_stop();
         ci.set_runtime_exception(::std::format("char const*{{{}}}",c_str));
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }catch(::std::string_view std_sv){
         ci.execute_stop();
         ci.set_runtime_exception(
             ::std::format("::std::string_view{{{}}}",std_sv)
         );
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }catch(::std::string const& std_str){
         ci.execute_stop();
         ci.set_runtime_exception(
             ::std::format("::std::string{{{}}}",std_str)
         );
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }catch(...){
         ci.execute_stop();
         ci.set_runtime_exception("Unknown{...}");
+        ::neotest::ExecuteCaseInfo::reset_current();
         return ci;
     }
     ci.execute_stop();
+    ::neotest::ExecuteCaseInfo::reset_current();
     return ci;
 }
 

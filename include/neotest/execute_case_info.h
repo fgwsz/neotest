@@ -92,6 +92,7 @@ public:
     static void set_current(ExecuteCaseInfo& info)noexcept;
     static ExecuteCaseInfo& get_current(void)noexcept;
     static bool has_current(void)noexcept;
+    static void reset_current(void)noexcept;
 private:
     ::std::string_view case_name_;
     ::std::optional<::std::string_view> group_name_;

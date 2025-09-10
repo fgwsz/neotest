@@ -226,5 +226,8 @@ ExecuteCaseInfo& ExecuteCaseInfo::get_current(void)noexcept{
 bool ExecuteCaseInfo::has_current(void)noexcept{
     return ExecuteCaseInfo::current_!=nullptr;
 }
+void ExecuteCaseInfo::reset_current(void)noexcept{
+    ExecuteCaseInfo::current_=nullptr;
+}
 
 }//namespace neotest
