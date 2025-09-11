@@ -1,0 +1,36 @@
+#ifndef SAMPLE_11_H
+#define SAMPLE_11_H
+
+#include"neotest/neotest.h"
+
+#include<iostream>//::std::cout
+#include<thread>//::std::this_thread
+#include<chrono>//::std::chrono
+
+void test_sample_11(void)noexcept{
+    ::neotest::AccumulativeTimer timer;
+    //开始计时
+    ::std::cout<<"计时开始...\n";
+    timer.start();
+    //模拟一些工作
+    ::std::this_thread::sleep_for(::std::chrono::seconds(5));
+    //暂停计时
+    timer.pause();
+    ::std::cout
+        <<::std::format("已暂停,累计时间: {} ns\n",timer.get_elapsed_time());
+    //模拟暂停期间
+    ::std::this_thread::sleep_for(::std::chrono::seconds(2));
+    //恢复计时
+    ::std::cout<<"恢复计时...\n";
+    timer.start();
+    //模拟更多工作
+    ::std::this_thread::sleep_for(::std::chrono::seconds(3));
+    //获取最终时间
+    double total_ns=timer.get_elapsed_time();
+    ::std::cout
+        <<::std::format("最终累计时间: {} ns\n",total_ns);
+    //停止计时
+    timer.stop();
+}
+
+#endif//SAMPLE_11_H

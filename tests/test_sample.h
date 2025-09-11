@@ -1,7 +1,7 @@
 #ifndef TEST_SAMPLE_H
 #define TEST_SAMPLE_H
 
-#include<iostream>//::std::cout
+#include<iostream>//::std::cout ::std::endl
 #include<string>//::std::string
 #include<format>//std::format
 
@@ -27,26 +27,34 @@
 #endif
 #include"sample9.h"
 #include"sample10.h"
-
+#include"sample11.h"
 
 void test_sample(void)noexcept{
-    static auto const line=::std::string(40,'=');
+    static auto const line=::std::string(30,'=');
     auto execute_sample=[&](auto const& info,auto const& func){
-        ::std::cout<<::std::format("{} {} Begin {}\n",line,info,line);
+        ::std::cout<<::std::format("{}[ Sample {} Begin ]{}",line,info,line)
+            <<::std::endl;
         func();
-        ::std::cout<<::std::format("{} {} End   {}\n",line,info,line);
+        ::std::cout<<::std::format("{}[ Sample {} End   ]{}",line,info,line)
+            <<::std::endl;
     };
+#define EXECUTE_SAMPLE(id__) \
+    execute_sample(#id__,::test_sample_##id__) \
+//
 #ifndef TEST_SAMPLE_8
-    execute_sample("Sample 1",::test_sample_1);
-    execute_sample("Sample 2",::test_sample_2);
-    execute_sample("Sample 3",::test_sample_3);
-    execute_sample("Sample 4",::test_sample_4);
-    execute_sample("Sample 7",::test_sample_7);
+    EXECUTE_SAMPLE(1);
+    EXECUTE_SAMPLE(2);
+    EXECUTE_SAMPLE(3);
+    EXECUTE_SAMPLE(4);
+    EXECUTE_SAMPLE(7);
 #else
-    execute_sample("Sample 8",::test_sample_8);
+    EXECUTE_SAMPLE(8);
 #endif
-    execute_sample("Sample 9",::test_sample_9);
-    execute_sample("Sample 10",::test_sample_10);
+    EXECUTE_SAMPLE(9);
+    EXECUTE_SAMPLE(10);
+    EXECUTE_SAMPLE(11);
+    //...
+#undef EXECUTE_SAMPLE
 }
 
 #endif//TEST_SAMPLE_H
