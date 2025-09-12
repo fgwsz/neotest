@@ -26,4 +26,8 @@ consteval auto type_name_of(void)noexcept{
 
 }//namespace neotest
 
+#define NEOTEST_TYPE_NAME_OF_VARIABLE(...) \
+    ::neotest::type_name_of<decltype(__VA_ARGS__)>() \
+//
+
 #endif//NEOTEST_TYPE_NAME_OF_HPP
