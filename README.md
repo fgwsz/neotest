@@ -9,7 +9,7 @@
 ## 计时器
 `neotest`库提供了一个简易的计时器类`::neotest::Timer`
 来统计一段代码实际执行所用的时间.
-### 使用案例
+### 基本使用案例
 下面是`::neotest::Timer`的一个使用案例:
 ```cpp
 ::neotest::Timer timer;
@@ -43,12 +43,35 @@ duration m     :0.0002521261
 duration h     :4.2021016666666665e-06
 duration string:15 ms 127 us 566 ns
 ```
-### 注意事项
-`::neotest::Timer`类对象的`duration_*`方法的返回结果
-与类对象最后一次调用`start()` `stop()`有关.
-
-`duration_*`方法只计算最后一次调用上述两方法的时间点的差值,
-即`last stop time point - last start time point`.
+### 累加计时功能
+```cpp
+::neotest::Timer timer;
+timer.start();
+//...需要计时的代码段1
+timer.stop();
+//...do something
+timer.start();
+//...需要计时的代码段2
+timer.stop();
+//打印计时结果(代码段1和2的总计执行时间)
+::std::cout<<timer.duration_string();
+```
+### 重置计时功能
+```cpp
+::neotest::Timer timer;
+timer.start();
+//...需要计时的代码段1
+timer.stop();
+//...do something
+timer.start();
+//清空之前的计时结果(不改变计时器状态)
+//此语句放在上一行的`timer.start()`之前,实际效果是一样的
+timer.reset();
+//...需要计时的代码段2
+timer.stop();
+//打印计时结果(代码段2的执行时间)
+::std::cout<<timer.duration_string();
+```
 ## 测试单元
 `neotest`库提供了`NEOTEST_CASE()`宏函数用来定义一个测试单元.
 
