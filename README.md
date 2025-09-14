@@ -654,21 +654,121 @@ neotest/include/neotest/static_check.hpp:24:20: note: declared here
       |                    ^~~~~~~~
 ```
 #### `NEOTEST_STATIC_CHECK*`语句的使用范围
+`NEOTEST_STATIC_CHECK*`语句支持在全局/命名空间作用域
+/函数内部/类内部进行定义和使用.
+
+如下是具体的使用案例:
 ```cpp
-//在全局作用域使用
+//全局作用域使用
 NEOTEST_STATIC_CHECK("global scope",false);
 
 void sample5_func(void)noexcept{
-    //在函数内部使用
-    NEOTEST_STATIC_CHECK("function scope",false);
+    //全局函数内部使用
+    NEOTEST_STATIC_CHECK("global function scope",false);
+    [](){
+        //全局函数内的匿名函数内部使用
+        NEOTEST_STATIC_CHECK("lambda scope in global function",false);
+    }();
+    struct LocalClass{
+//无法在全局函数内的局部类内部使用
+//        NEOTEST_STATIC_CHECK("local class scope in global function",false);
+    };
 }
 
-class Sample5_Class{
-    //在类内部使用
-    NEOTEST_STATIC_CHECK("class scope",false);
+auto lambda_func=[](){
+    //全局匿名函数内部使用
+    NEOTEST_STATIC_CHECK("global lambda scope",false);
 };
+
+class Sample5_Class{
+    //全局类内部使用
+    NEOTEST_STATIC_CHECK("global class scope",false);
+    struct LocalClass{
+        //全局类内的局部类内部使用
+        NEOTEST_STATIC_CHECK("local class scope in global class",false);
+    };
+    void member_func(void)noexcept{
+        //全局类的成员函数内部使用
+        NEOTEST_STATIC_CHECK("global class member function scope",false);
+        [](){
+            //全局类的成员函数内的匿名函数内部使用
+            NEOTEST_STATIC_CHECK("lambda scope in global class member function",false);
+        }();
+        struct LocalClass{
+//无法在全局类内的局部类内部使用
+//            NEOTEST_STATIC_CHECK("local class scope in global class member function",false);
+        };
+    }
+};
+
+namespace tests{
+//命名空间作用域使用
+NEOTEST_STATIC_CHECK("namesapce scope",false);
+
+void sample5_func(void)noexcept{
+    //命名空间内函数内部使用
+    NEOTEST_STATIC_CHECK("namesapce function scope",false);
+    [](){
+        //命名空间内函数内的匿名函数内部使用
+        NEOTEST_STATIC_CHECK("lambda scope in namesapce function",false);
+    }();
+    struct LocalClass{
+//无法在命名空间内函数内的局部类内部使用
+//        NEOTEST_STATIC_CHECK("local class scope in namesapce function",false);
+    };
+}
+
+auto lambda_func=[](){
+    //命名空间内匿名函数内部使用
+    NEOTEST_STATIC_CHECK("namesapce lambda scope",false);
+};
+
+class Sample5_Class{
+    //命名空间内类内部使用
+    NEOTEST_STATIC_CHECK("namesapce class scope",false);
+    struct LocalClass{
+        //命名空间内类内的局部类内部使用
+        NEOTEST_STATIC_CHECK("local class scope in namesapce class",false);
+    };
+    void member_func(void)noexcept{
+        //命名空间内类的成员函数内部使用
+        NEOTEST_STATIC_CHECK("namesapce class member function scope",false);
+        [](){
+            //命名空间内类的成员函数内的匿名函数内部使用
+            NEOTEST_STATIC_CHECK("lambda scope in namesapce class member function",false);
+        }();
+        struct LocalClass{
+//无法在命名空间内类的成员函数内的局部类内部使用
+//            NEOTEST_STATIC_CHECK("local class scope in namesapce class member function",false);
+        };
+    }
+};
+
+}//namespace tests
 ```
+#### 单输入参数`NEOTEST_STATIC_CHECK*()`特殊使用技巧
+`NEOTEST_STATIC_CHECK()`的参数列表
+原则上只能输入一个`constexpr bool`类型的编译期表达式,
+但是上一节的用法却输入了2个输入参数.
+
+其实,这里运用了一个`,`运算符技巧:
+
+`,`运算符可以连接2个不同的表达式,但是输出的结果是最后一个表达式的结果.
+
+`NEOTEST_STATIC_CHECK()`会将`()`的全部输入内容导出为提示信息的字符串,
+因此也就包含了`,`运算符之前的全部内容.
+
+所以在这里使用了这个技巧,
+让`NEOTEST_STATIC_CHECK()`
+达到了类似`static_assert(expr,msg)`的使用效果,
+只是颠倒了一下`msg`输入参数的顺序.
+
+同样地,只能输入一个输入参数的`NEOTEST_STATIC_CHECK_NOT()`也支持上述用法.
+
+但是支持输入两个输入参数的其他`NEOTEST_STATIC_CHECK*()`就不行了.
 #### 编译期值逻辑表达式
+除了`NEOTEST_STATIC_CHECK`之外,
+`neotest`库还提供了其他的`NEOTEST_STATIC_CHECK*`用于检查编译期逻辑表达式.
 ```cpp
 // check(condition)
 NEOTEST_STATIC_CHECK(condition);
@@ -680,6 +780,8 @@ NEOTEST_STATIC_CHECK_VALUE_AND(condition_1,condition_2);
 NEOTEST_STATIC_CHECK_VALUE_OR(condition_1,condition_2);
 ```
 #### 编译期值比较表达式
+同样地,`neotest`库也提供了其他的`NEOTEST_STATIC_CHECK*`
+用于检查两个编译期值的大小关系.
 ```cpp
 // check(value_1 == value_2)
 NEOTEST_STATIC_CHECK_VALUE_EQ(value_1,value_2);
@@ -695,7 +797,8 @@ NEOTEST_STATIC_CHECK_VALUE_LT(value_1,value_2);
 NEOTEST_STATIC_CHECK_VALUE_LE(value_1,value_2);
 ```
 #### 编译期类型比较表达式
-检查两个类型的异同(类型包含可能存在的`cv ref`修饰符).
+为了方便测试模板元编程程序,`neotest`库提供了其他的`NEOTEST_STATIC_CHECK*`
+用于检查两个类型的异同(类型包含可能存在的`cv ref`修饰符).
 ```cpp
 // check(true == ::std::is_same_v<value_1,value_2>)
 NEOTEST_STATIC_CHECK_TYPE_EQ(value_1,value_2);
