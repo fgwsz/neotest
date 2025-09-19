@@ -453,17 +453,23 @@ Inside the test group, use the `vnitest` library's provided `VNITEST_GROUP_ELEME
 
 Note: The input parameters for `VNITEST_GROUP_ELEMENT_CASE*()` can only use string literals / raw string literals.
 ```cpp
-// Add a case to the group by its name
+// Add a test case to the group by its name
 VNITEST_GROUP_ELEMENT_CASE(case_name_literal);
-// Find and add cases matching a regex pattern to the group
+// Find and add test cases matching the pattern via regular expression
 VNITEST_GROUP_ELEMENT_CASE_REGEX(case_name_pattern_literal);
+// Add a test case to the group by its name, and repeat it integer_literal times
+VNITEST_GROUP_ELEMENT_CASE_REPEAT(integer_literal, case_name_literal);
+// Find and add test cases matching the pattern via regular expression, and repeat them integer_literal times
+VNITEST_GROUP_ELEMENT_CASE_REGEX_REPEAT(integer_literal, case_name_pattern_literal);
 ```
 Here is a concrete usage example:
 ```cpp
 VNITEST_GROUP("test Person"){
-    VNITEST_GROUP_ELEMENT_CASE("test Person name"); // Add specific case
-    VNITEST_GROUP_ELEMENT_CASE("test Person age");  // Add specific case
-    VNITEST_GROUP_ELEMENT_CASE_REGEX(R"(^test Person .*)"); // Add all cases whose names start with "test Person "
+    VNITEST_GROUP_ELEMENT_CASE("test Person name");
+    VNITEST_GROUP_ELEMENT_CASE("test Person age");
+    VNITEST_GROUP_ELEMENT_CASE_REGEX(R"(^test Person .*)");
+    VNITEST_GROUP_ELEMENT_CASE_REPEAT(2, "test Person name");
+    VNITEST_GROUP_ELEMENT_CASE_REGEX_REPEAT(3, R"(^test Person .*)");
 }
 ```
 #### Undefined Behavior

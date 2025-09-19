@@ -22,6 +22,8 @@
 #   include "sample6.h"
 #   define TEST_SAMPLE_7
 #   include "sample7.h"
+#   define TEST_SAMPLE_12
+#   include "sample12.h"
 #else
 #   include "sample8.h"
 #endif
@@ -53,6 +55,9 @@ void test_sample(void)noexcept{
     EXECUTE_SAMPLE(9);
     EXECUTE_SAMPLE(10);
     EXECUTE_SAMPLE(11);
+#ifndef TEST_SAMPLE_8
+    EXECUTE_SAMPLE(12);
+#endif
     //...
 #undef EXECUTE_SAMPLE
 }

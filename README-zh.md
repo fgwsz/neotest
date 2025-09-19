@@ -497,6 +497,10 @@ VNITEST_GROUP(""){
 VNITEST_GROUP_ELEMENT_CASE(case_name_literal);
 //通过正则表达式匹配查找符合要求的测试单元添加进组
 VNITEST_GROUP_ELEMENT_CASE_REGEX(case_name_pattern_literal);
+//通过测试单元的名称添加进组,并添加integer_literal次
+VNITEST_GROUP_ELEMENT_CASE_REPEAT(integer_literal,case_name_literal);
+//通过正则表达式匹配查找符合要求的测试单元添加进组,并添加integer_literal次
+VNITEST_GROUP_ELEMENT_CASE_REGEX_REPEAT(integer_literal,case_name_pattern_literal);
 ```
 下面是一个具体的使用案例:
 ```cpp
@@ -504,6 +508,8 @@ VNITEST_GROUP("test Person"){
     VNITEST_GROUP_ELEMENT_CASE("test Person name");
     VNITEST_GROUP_ELEMENT_CASE("test Person age");
     VNITEST_GROUP_ELEMENT_CASE_REGEX(R"(^test Person .*)");
+    VNITEST_GROUP_ELEMENT_CASE_REPEAT(2,"test Person name");
+    VNITEST_GROUP_ELEMENT_CASE_REGEX_REPEAT(3,R"(^test Person .*)");
 }
 ```
 #### 未定义行为

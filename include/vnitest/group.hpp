@@ -1,6 +1,8 @@
 #ifndef VNITEST_GROUP_HPP
 #define VNITEST_GROUP_HPP
 
+#include<cstddef>//::std::size_t
+
 #include<vector>//::std::vector
 #include<variant>//::std::variant
 #include<string_view>//::std::string_view
@@ -51,6 +53,22 @@ struct Group;
 
 #define VNITEST_GROUP_ELEMENT_CASE_REGEX(...) do{ \
     body.emplace_back(VNITEST_MAKE_REGEX(__VA_ARGS__)); \
+}while(0) \
+//
+
+//number__: unsigned integer literal
+#define VNITEST_GROUP_ELEMENT_CASE_REPEAT(number__,...) do{ \
+    for(::std::size_t count=0;count<number__;++count){ \
+        VNITEST_GROUP_ELEMENT_CASE(__VA_ARGS__); \
+    } \
+}while(0) \
+//
+
+//number__: unsigned integer literal
+#define VNITEST_GROUP_ELEMENT_CASE_REGEX_REPEAT(number__,...) do{ \
+    for(::std::size_t count=0;count<number__;++count){ \
+        VNITEST_GROUP_ELEMENT_CASE_REGEX(__VA_ARGS__); \
+    } \
 }while(0) \
 //
 

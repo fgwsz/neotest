@@ -211,15 +211,13 @@ VNITEST_GROUP("failed_group"){
 
 #endif//TEST_SAMPLE_1
 
-void test_console_output(void)noexcept{
-    ::std::cout<<::vnitest::execute_case_all_to_json()<<'\n';
-    ::std::cout<<::vnitest::execute_group_all_to_json()<<'\n';
-}
 void test_file_output(void)noexcept{
     ::std::ofstream ofs("sample1.txt",::std::ios::out|::std::ios::trunc);
     if(ofs.is_open()){
-        ofs<<::vnitest::execute_case_all_to_json()<<'\n';
-        ofs<<::vnitest::execute_group_all_to_json()<<'\n';
+        ofs<<::vnitest::execute_group_to_json({
+                "passed_group",
+                "failed_group"
+        })<<'\n';
         ofs.close();
     }else{
         std::cout<<"Unable to open file for writing."<<'\n';
