@@ -478,13 +478,13 @@ NEOTEST_SKIP("this is reason")
 同样的`NEOTEST_GROUP()`也支持空字符串作为测试单元的名称.
 ```cpp
 NEOTEST_GROUP("hello"){
-    //...这里是你的单元测试代码
+    //...这里是本测试组添加测试单元成员的语句
 }
 NEOTEST_GROUP(R"("hello world!")"){//<=>NEOTEST_GROUP("\"hello world!\"")
-    //...这里是你的单元测试代码
+    //...这里是本测试组添加测试单元成员的语句
 }
 NEOTEST_GROUP(""){
-    //...这里是你的单元测试代码
+    //...这里是本测试组添加测试单元成员的语句
 }
 ```
 ###### 添加测试单元成员
