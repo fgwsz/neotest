@@ -3,7 +3,6 @@
 
 #include<string_view>//::std::string_view
 #include<string>//::std::string
-#include<ios>//std::boolalpha
 
 #include<vnitest/macro.h>
 #include<vnitest/ostring_stream.hpp>

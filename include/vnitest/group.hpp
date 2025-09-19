@@ -4,8 +4,6 @@
 #include<vector>//::std::vector
 #include<variant>//::std::variant
 #include<string_view>//::std::string_view
-#include<regex>//::std::regex
-#include<tuple>//::std::tuple
 
 #include<vnitest/static_string.hpp>
 #include<vnitest/regex.h>
