@@ -1,14 +1,14 @@
 #ifndef SAMPLE_11_H
 #define SAMPLE_11_H
 
-#include<neotest/neotest.h>
+#include<vnitest/vnitest.h>
 
 #include<iostream>//::std::cout
 #include<thread>//::std::this_thread
 #include<chrono>//::std::chrono
 
 void test_timer_1(void)noexcept{
-    ::neotest::Timer timer;
+    ::vnitest::Timer timer;
     //开始计时
     ::std::cout<<"计时开始...\n";
     timer.start();
@@ -33,7 +33,7 @@ void test_timer_1(void)noexcept{
         <<::std::format("最终累计时间: {}\n",timer.duration_string());
 }
 void test_timer_2(void)noexcept{
-    ::neotest::Timer timer;
+    ::vnitest::Timer timer;
     //开始计时
     ::std::cout<<"计时开始...\n";
     timer.start();

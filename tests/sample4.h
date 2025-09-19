@@ -3,11 +3,11 @@
 
 #include<iostream>//::std::cout
 
-#include<neotest/neotest.h>
+#include<vnitest/vnitest.h>
 
 void test_sample_4(void)noexcept{
     auto println_type_name=[&]<typename Type__>(void)noexcept{
-        ::std::cout<<::neotest::type_name_of<Type__>()<<'\n';
+        ::std::cout<<::vnitest::type_name_of<Type__>()<<'\n';
     };
     println_type_name.template operator()<bool>();
     println_type_name.template operator()<char>();

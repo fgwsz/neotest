@@ -1,10 +1,10 @@
 #ifndef SAMPLE_9_H
 #define SAMPLE_9_H
 
-#include<neotest/neotest.h>
+#include<vnitest/vnitest.h>
 
 void test_sample_9(void)noexcept{
-    ::neotest::Timer timer;
+    ::vnitest::Timer timer;
     timer.start();
     for(auto i=0;i<1000'0000;++i){}
     timer.stop();

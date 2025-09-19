@@ -4,37 +4,37 @@
 #include<iostream>//::std::cout
 #include<regex>//::std::regex
 
-#include<neotest/neotest.h>
+#include<vnitest/vnitest.h>
 
 #ifdef TEST_SAMPLE_2
 
-NEOTEST_CASE("test.Hello"){
-    NEOTEST_RUNTIME_CHECK_EQ(0,0-3)<<"[msg]: "<<int{1};
-    NEOTEST_RUNTIME_CHECK_EQ(1,1-3)<<"msg 2";
-    NEOTEST_RUNTIME_CHECK_EQ(2,2-3)<<"msg 3";
-    NEOTEST_RUNTIME_ASSERT_EQ(1+2,2)<<"runtime assert failed!";
+VNITEST_CASE("test.Hello"){
+    VNITEST_RUNTIME_CHECK_EQ(0,0-3)<<"[msg]: "<<int{1};
+    VNITEST_RUNTIME_CHECK_EQ(1,1-3)<<"msg 2";
+    VNITEST_RUNTIME_CHECK_EQ(2,2-3)<<"msg 3";
+    VNITEST_RUNTIME_ASSERT_EQ(1+2,2)<<"runtime assert failed!";
 }
-NEOTEST_CASE("test.World"){
-    NEOTEST_RUNTIME_CHECK_EQ(1+1,2);
-    NEOTEST_RUNTIME_CHECK_EQ(1+2,2);
-    NEOTEST_RUNTIME_CHECK_EQ(1+4,5);
-    NEOTEST_SKIP("This is info.")<<"This is msg!";
+VNITEST_CASE("test.World"){
+    VNITEST_RUNTIME_CHECK_EQ(1+1,2);
+    VNITEST_RUNTIME_CHECK_EQ(1+2,2);
+    VNITEST_RUNTIME_CHECK_EQ(1+4,5);
+    VNITEST_SKIP("This is info.")<<"This is msg!";
 }
-NEOTEST_GROUP("test group"){
-    NEOTEST_GROUP_ELEMENT_CASE("test.Hello");
-    NEOTEST_GROUP_ELEMENT_CASE("test.World");
-    NEOTEST_GROUP_ELEMENT_CASE_REGEX(R"(^test\..*)");
-    NEOTEST_GROUP_ELEMENT_CASE("test.Undefined");
+VNITEST_GROUP("test group"){
+    VNITEST_GROUP_ELEMENT_CASE("test.Hello");
+    VNITEST_GROUP_ELEMENT_CASE("test.World");
+    VNITEST_GROUP_ELEMENT_CASE_REGEX(R"(^test\..*)");
+    VNITEST_GROUP_ELEMENT_CASE("test.Undefined");
 }
 
 #endif//TEST_SAMPLE_2
 
 void test_sample_2(void)noexcept{
     ::std::cout
-        <<::neotest::execute_group_to_json(::std::regex("^test .*"))
+        <<::vnitest::execute_group_to_json(::std::regex("^test .*"))
         <<'\n';
     ::std::cout
-        <<::neotest::execute_case_to_json({
+        <<::vnitest::execute_case_to_json({
             "test.Hello"
             ,"test.World"
             ,::std::regex(R"(^test\..*)")

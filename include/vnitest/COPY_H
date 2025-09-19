@@ -1,0 +1,10 @@
+#ifndef VNITEST_?_H
+#define VNITEST_?_H
+
+namespace vnitest{
+
+
+
+}//namespace vnitest
+
+#endif//VNITEST_?_H
