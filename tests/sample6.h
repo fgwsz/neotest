@@ -1,7 +1,7 @@
 #ifndef SAMPLE_6_H
 #define SAMPLE_6_H
 
-#include"neotest/neotest.h"
+#include<neotest/neotest.h>
 
 #ifdef TEST_SAMPLE_6
 

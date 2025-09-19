@@ -5,8 +5,8 @@
 #include<string>//::std::string
 #include<utility>//::std::forward
 
-#include"condition_info.h"
-#include"ostring_stream.hpp"
+#include<neotest/condition_info.h>
+#include<neotest/ostring_stream.hpp>
 
 namespace neotest{
 

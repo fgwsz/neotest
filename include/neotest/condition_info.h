@@ -5,8 +5,8 @@
 #include<string>//::std::string
 #include<ios>//std::boolalpha
 
-#include"macro.h"
-#include"ostring_stream.hpp"
+#include<neotest/macro.h>
+#include<neotest/ostring_stream.hpp>
 
 namespace neotest{
 

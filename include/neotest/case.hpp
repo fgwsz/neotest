@@ -3,8 +3,8 @@
 
 #include<string_view>//::std::string_view
 
-#include"static_string.hpp"
-#include"case_dict.h"
+#include<neotest/static_string.hpp>
+#include<neotest/case_dict.h>
 
 namespace neotest::detail{
 

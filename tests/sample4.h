@@ -3,7 +3,7 @@
 
 #include<iostream>//::std::cout
 
-#include"neotest/type_name_of.hpp"
+#include<neotest/neotest.h>
 
 void test_sample_4(void)noexcept{
     auto println_type_name=[&]<typename Type__>(void)noexcept{

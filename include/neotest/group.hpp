@@ -7,9 +7,9 @@
 #include<regex>//::std::regex
 #include<tuple>//::std::tuple
 
-#include"static_string.hpp"
-#include"regex.h"
-#include"group_dict.h"
+#include<neotest/static_string.hpp>
+#include<neotest/regex.h>
+#include<neotest/group_dict.h>
 
 namespace neotest::detail{
 

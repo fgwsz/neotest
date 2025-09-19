@@ -5,8 +5,8 @@
 #include<variant>//::std::variant
 #include<string_view>//::std::string_view
 
-#include"ordered_map.hpp"
-#include"regex.h"
+#include<neotest/ordered_map.hpp>
+#include<neotest/regex.h>
 
 namespace neotest{
 

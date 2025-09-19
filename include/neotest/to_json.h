@@ -7,11 +7,11 @@
 #include<string>//::std::string
 #include<vector>//::std::vector
 
-#include"runtime_check_failed_error.h"
-#include"runtime_assert_failed_exception.h"
-#include"skip_exception.h"
-#include"execute_case_info.h"
-#include"execute_group_info.h"
+#include<neotest/runtime_check_failed_error.h>
+#include<neotest/runtime_assert_failed_exception.h>
+#include<neotest/skip_exception.h>
+#include<neotest/execute_case_info.h>
+#include<neotest/execute_group_info.h>
 
 namespace neotest{
 

@@ -5,8 +5,8 @@
 
 #include<type_traits>//::std::is_same_v
 
-#include"macro.h"
-#include"static_string.hpp"
+#include<neotest/macro.h>
+#include<neotest/static_string.hpp>
 
 namespace neotest::detail{
 

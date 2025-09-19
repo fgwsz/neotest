@@ -1,7 +1,7 @@
 #ifndef SAMPLE_5_H
 #define SAMPLE_5_H
 
-#include"neotest/static_check.hpp"
+#include<neotest/neotest.h>
 
 #ifdef TEST_SAMPLE_5
 

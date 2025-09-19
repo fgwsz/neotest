@@ -4,7 +4,7 @@
 #include<string_view>//::std::string_view
 #include<string>//::std::string
 
-#include"macro.h"
+#include<neotest/macro.h>
 
 namespace neotest{
 

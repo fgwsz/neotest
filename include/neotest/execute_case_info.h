@@ -9,10 +9,10 @@
 #include<string>//::std::string
 #include<functional>//::std::function
 
-#include"timer.h"
-#include"runtime_check_failed_error.h"
-#include"runtime_assert_failed_exception.h"
-#include"skip_exception.h"
+#include<neotest/timer.h>
+#include<neotest/runtime_check_failed_error.h>
+#include<neotest/runtime_assert_failed_exception.h>
+#include<neotest/skip_exception.h>
 
 namespace neotest{
 

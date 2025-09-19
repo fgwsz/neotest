@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 包含头文件目录
 include_directories(include)
-include_directories(include/${PROJECT_NAME})
 
 # 设置源文件
 file(GLOB LIB_SOURCES "source/${PROJECT_NAME}/*.cpp")

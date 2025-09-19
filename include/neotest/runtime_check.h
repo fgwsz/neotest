@@ -1,8 +1,8 @@
 #ifndef NEOTEST_RUNTIME_CHECK_H
 #define NEOTEST_RUNTIME_CHECK_H
 
-#include"condition_info.h"
-#include"runtime_check_stream.hpp"
+#include<neotest/condition_info.h>
+#include<neotest/runtime_check_stream.hpp>
 
 #define NEOTEST_RUNTIME_CHECK(...) \
     ::neotest::RuntimeCheckStream( \

@@ -7,8 +7,8 @@
 #include<variant>//::std::variant
 #include<initializer_list>//::std::initializer_list
 
-#include"execute_case_info.h"
-#include"execute_group_info.h"
+#include<neotest/execute_case_info.h>
+#include<neotest/execute_group_info.h>
 
 namespace neotest{
 

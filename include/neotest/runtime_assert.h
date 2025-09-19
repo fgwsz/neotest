@@ -1,8 +1,8 @@
 #ifndef NEOTEST_RUNTIME_ASSERT_H
 #define NEOTEST_RUNTIME_ASSERT_H
 
-#include"condition_info.h"
-#include"runtime_assert_stream.hpp"
+#include<neotest/condition_info.h>
+#include<neotest/runtime_assert_stream.hpp>
 
 #define NEOTEST_RUNTIME_ASSERT(...) \
     ::neotest::RuntimeAssertStream( \
